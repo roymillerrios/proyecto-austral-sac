@@ -3,11 +3,13 @@ package com.g5.app.models.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.g5.app.models.dao.IInventarioDao;
 import com.g5.app.models.entity.Inventario;
 
+@Service
 public class InventarioServiceImpl implements IInventarioService{
 	
 	@Autowired
