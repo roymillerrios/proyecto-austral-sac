@@ -29,7 +29,7 @@ public class UnidadMedida implements Serializable {
 	@NotEmpty
 	private String abreviatura;
 	
-	@OneToMany(mappedBy = "unidades", fetch = FetchType.LAZY,cascade =CascadeType.PERSIST)
+	@OneToMany(mappedBy = "unidadMedida", fetch = FetchType.LAZY,cascade =CascadeType.PERSIST)
 	private List<Material> materiales;
 
 	public Long getId() {
