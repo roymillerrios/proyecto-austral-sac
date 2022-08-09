@@ -1,4 +1,4 @@
- package com.g5.app.models.controllers;
+package com.g5.app.models.controllers;
 
 import java.util.Map;
 
@@ -15,64 +15,64 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.g5.app.models.entity.UnidadMedida;
-import com.g5.app.models.service.IUnidadMedidaService;
+import com.g5.app.models.entity.Inventario;
+import com.g5.app.models.service.IInventarioService;
 
 @Controller
- @RequestMapping(value="/unidadmedida")
-public class UnidadMedidaController {
+@RequestMapping(value="/inventario")
+public class InventarioController {
 	
 	@Autowired
-	private IUnidadMedidaService unidadmedidaService;
+	private IInventarioService inventarioService;
 	
 	@RequestMapping(value= "/form", method = RequestMethod.GET)
 	public String crear(Map<String, Object> model) {
-		UnidadMedida unidadmedida = new UnidadMedida();
-		model.put("unidadmedida", unidadmedida);
-		model.put("titulo", "Formulario de UnidadMedida");
-		return "unidadmedida/form";
+		Inventario inventario = new Inventario();
+		model.put("inventario", inventario);
+		model.put("titulo", "Formulario de Inventario");
+		return "inventario/form";
 	}
 	
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid UnidadMedida unidadmedida,BindingResult result, Model model,
+	public String guardar(@Valid Inventario inventario,BindingResult result, Model model,
 			RedirectAttributes flash, SessionStatus status) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario de Unidad de Medida");
-			return "unidadmedida/form";
+			model.addAttribute("titulo", "Formulario de Inventario");
+			return "inventario/form";
 		}
 
-		String mensajeFlash = (unidadmedida.getId() != null) ? "Unidad de Medida editado con éxito!" : "Unidad de Medida creado con éxito!";
+		String mensajeFlash = (inventario.getId() != null) ? "Inventario editado con éxito!" : "Inventario creado con éxito!";
 
-		unidadmedidaService.save(unidadmedida);
+		inventarioService.save(inventario);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "unidadmedida/listar";
+		return "inventario/listar";
 	}
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
-		model.addAttribute("titulo", "Listado de Unidad de Medida");
-	    model.addAttribute("unidadmedida", unidadmedidaService.findAll());
-	    return "unidadmedida/listar";
+		model.addAttribute("titulo", "Listado de Inventarios");
+	    model.addAttribute("inventario", inventarioService.findAll());
+	    return "inventario/listar";
 	}
 	
 	@GetMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id")Long id,Map<String, Object> model,RedirectAttributes flash) {
-		UnidadMedida unidadmedida =null;
-	    model.put("unidadmedida", unidadmedida);
-		model.put("titulo", "Editar Unidad de Medida");
-		return "unidadmedida/form";
+		Inventario inventario =null;
+	    model.put("inventario", inventario);
+		model.put("titulo", "Editar Inventario");
+		return "inventario/form";
 	}
 	
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 
 		if (id != null) {
-			unidadmedidaService.delete(id);
-			flash.addFlashAttribute("success", "Unidad de Medida eliminado con éxito!");
+			inventarioService.delete(id);
+			flash.addFlashAttribute("success", "Inventario eliminado con éxito!");
 
 		}
-		return "unidadmedida/listar";
+		return "inventario/listar";
 	}
 }
