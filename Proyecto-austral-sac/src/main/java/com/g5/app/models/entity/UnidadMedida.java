@@ -63,4 +63,6 @@ public class UnidadMedida implements Serializable {
 	public void setMateriales(List<Material> materiales) {
 		this.materiales = materiales;
 	}
+	
+	private static final long serialVersionUID = 1L;
 }
