@@ -38,6 +38,7 @@ public class InventarioController {
 		model.put("inventario", inventario);
 		model.put("titulo", "Formulario de Inventario");
 		return "inventario/form";
+		
 	}
 	
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
