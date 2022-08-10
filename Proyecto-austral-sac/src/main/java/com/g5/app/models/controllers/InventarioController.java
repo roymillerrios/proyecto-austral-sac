@@ -66,11 +66,11 @@ public class InventarioController {
 			inventario = inventarioService.findOne(id);
 			if (inventario == null) {
 				flash.addFlashAttribute("error", "El ID del tipo no existe en la BBDD!");
-				return "redirect:/tipo/listar";
+				return "redirect:/inventario/listar";
 			}
 		} else {
 			flash.addFlashAttribute("error", "El ID del tipo no puede ser cero!");
-			return "redirect:/tipo/listar";
+			return "redirect:/inventario/listar";
 		}
 	    model.put("inventario", inventario);
 		model.put("titulo", "Editar Inventario");

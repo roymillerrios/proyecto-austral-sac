@@ -20,7 +20,7 @@ import com.g5.app.models.entity.UnidadMedida;
 import com.g5.app.models.service.IUnidadMedidaService;
 
 @Controller
- @RequestMapping(value="/unidadmedida")
+@RequestMapping(value="/unidadmedida")
 @SessionAttributes("unidadmedida")
 public class UnidadMedidaController {
 	
@@ -65,11 +65,11 @@ public class UnidadMedidaController {
 		if (id > 0) {
 			unidadmedida = unidadmedidaService.findOne(id);
 			if (unidadmedida == null) {
-				flash.addFlashAttribute("error", "El ID del tipo no existe en la BBDD!");
+				flash.addFlashAttribute("error", "El ID de Unidad de Medida no existe en la BBDD!");
 				return "redirect:/unidadmedida/listar";
 			}
 		} else {
-			flash.addFlashAttribute("error", "El ID del tipo no puede ser cero!");
+			flash.addFlashAttribute("error", "El ID de Unidad de Medida no puede ser cero!");
 			return "redirect:/unidadmedida/listar";
 		}
 	    model.put("unidadmedida", unidadmedida);
