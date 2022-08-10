@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +31,8 @@ public class Trabajador {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false, mappedBy = "trabajador")
+    @PrimaryKeyJoinColumn(referencedColumnName = "id")
     private Usuario usuario;
 	
 	@NotEmpty

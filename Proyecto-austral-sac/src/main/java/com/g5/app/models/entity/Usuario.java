@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
@@ -44,7 +45,8 @@ public class Usuario implements Serializable{
 	private Set<Rol> roles = new HashSet<>();
 	
 	
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@OneToOne(fetch = FetchType.LAZY)
+	@MapsId
 	@JoinColumn(name = "idTrabajador", nullable = false)
 	private Trabajador trabajador;
 
