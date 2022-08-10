@@ -44,7 +44,8 @@ public class Usuario implements Serializable{
 	private Set<Rol> roles = new HashSet<>();
 	
 	
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "usuario")
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "usuario")
+	@JoinColumn(name = "idTrabajador", nullable = false)
 	private Trabajador trabajador;
 
 	public Long getId() {
