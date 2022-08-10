@@ -9,10 +9,9 @@ layout:decorate="~{layout/layout}">
 <title></title>
 </head>
 <body>
-<div class="card-body" layout:fragment="contenido">
-                  
-         
-					
+<div class="card-body" layout:fragment="contenido" style="padding-top: 10px;">
+        <h3>Bienvenido</h3>
+        <h6 sec:authentication="principal.username"></h6>
 </div>
 <!-- Scripts extra -->
 <th:block layout:fragment="scripts-extra">	

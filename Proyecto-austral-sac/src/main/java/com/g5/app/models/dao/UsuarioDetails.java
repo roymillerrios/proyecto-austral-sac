@@ -16,12 +16,15 @@ public class UsuarioDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
-
-	public UsuarioDetails (Usuario usuario) {
-	this.usuario = usuario;
 	
+	
+	public UsuarioDetails(Usuario usuario) {
+		super();
+		this.usuario = usuario;
 	}
-	
+
+
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<Rol> roles = usuario.getRoles();

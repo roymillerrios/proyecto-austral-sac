@@ -213,7 +213,8 @@ xmlns:th="http://www.thymeleaf.org">
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6 sec:authentication="principal.username"></h6>
+            	<h6 sec:authentication="principal.username"></h6>
+              <span sec:authentication="principal.authorities">Roles</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -388,10 +389,8 @@ xmlns:th="http://www.thymeleaf.org">
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
-
-                <div class="card-body" layout:fragment="contenido">
-					<!-- Aquí va el contenido de la página-->
 					
+                <div class="card-body" layout:fragment="contenido">	
               </div>
             </div><!-- End Reports -->
 
