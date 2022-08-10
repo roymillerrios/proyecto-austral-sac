@@ -19,6 +19,7 @@ public class UsuarioDetails implements UserDetails {
 
 	public UsuarioDetails (Usuario usuario) {
 	this.usuario = usuario;
+	
 	}
 	
 	@Override
