@@ -80,5 +80,110 @@ public class Trabajador {
 	@Lob
 	@Column(name = "CertDomiciliario")
 	private byte[] CertDomiciliario;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getDNI() {
+		return DNI;
+	}
+
+	public void setDNI(String dNI) {
+		DNI = dNI;
+	}
+
+	public Date getFechaIngreso() {
+		return FechaIngreso;
+	}
+
+	public void setFechaIngreso(Date fechaIngreso) {
+		FechaIngreso = fechaIngreso;
+	}
+
+	public String getNombreCompleto() {
+		return NombreCompleto;
+	}
+
+	public void setNombreCompleto(String nombreCompleto) {
+		NombreCompleto = nombreCompleto;
+	}
+
+	public String getApellidoMaterno() {
+		return ApellidoMaterno;
+	}
+
+	public void setApellidoMaterno(String apellidoMaterno) {
+		ApellidoMaterno = apellidoMaterno;
+	}
+
+	public String getApellidoPaterno() {
+		return ApellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		ApellidoPaterno = apellidoPaterno;
+	}
+
+	public String getExamenSeguridad() {
+		return ExamenSeguridad;
+	}
+
+	public void setExamenSeguridad(String examenSeguridad) {
+		ExamenSeguridad = examenSeguridad;
+	}
+
+	public byte[] getSCTRPension() {
+		return SCTRPension;
+	}
+
+	public void setSCTRPension(byte[] sCTRPension) {
+		SCTRPension = sCTRPension;
+	}
+
+	public byte[] getSCTRSalud() {
+		return SCTRSalud;
+	}
+
+	public void setSCTRSalud(byte[] sCTRSalud) {
+		SCTRSalud = sCTRSalud;
+	}
+
+	public byte[] getAntPenales() {
+		return AntPenales;
+	}
+
+	public void setAntPenales(byte[] antPenales) {
+		AntPenales = antPenales;
+	}
+
+	public byte[] getAntPoliciales() {
+		return AntPoliciales;
+	}
+
+	public void setAntPoliciales(byte[] antPoliciales) {
+		AntPoliciales = antPoliciales;
+	}
+
+	public byte[] getCertDomiciliario() {
+		return CertDomiciliario;
+	}
+
+	public void setCertDomiciliario(byte[] certDomiciliario) {
+		CertDomiciliario = certDomiciliario;
+	}
+	
 	
 }

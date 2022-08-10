@@ -83,6 +83,18 @@ public class Usuario implements Serializable{
 		this.roles = roles;
 	}
 
+	public Trabajador getTrabajador() {
+		return trabajador;
+	}
+
+	public void setTrabajador(Trabajador trabajador) {
+		this.trabajador = trabajador;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	
 	
 

@@ -1,12 +1,11 @@
 package com.g5.app;
 
-import javax.annotation.Resource;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -18,8 +17,11 @@ import com.g5.app.models.service.LoginServiceImpl;
 public class SecurityConfig {
 	
 	
-	@Resource
-	private LoginServiceImpl loginServiceImpl;
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new LoginServiceImpl();
+	}
+	
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder () {
@@ -29,7 +31,7 @@ public class SecurityConfig {
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-		auth.setUserDetailsService(loginServiceImpl);
+		auth.setUserDetailsService(userDetailsService());
 		auth.setPasswordEncoder(passwordEncoder());
 		return auth;
 	}
