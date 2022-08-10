@@ -32,7 +32,7 @@ public class Material implements Serializable{
 	private String codigo;
 	
 	@NotEmpty
-	@Size(min=1,max=50,message="El nombre debe medir entre 1 y 20 de largo")
+	@Size(min=1,max=50,message="El nombre debe medir entre 1 y 20 de caracteres de largo")
 	private String nombre;
 	
 	@NotEmpty
@@ -63,5 +63,102 @@ public class Material implements Serializable{
 		this.inventarios = new ArrayList<Inventario>() ;
 	}
 	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
+	public String getMarca() {
+		return marca;
+	}
+
+
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+
+
+	public Double getCantidad() {
+		return cantidad;
+	}
+
+
+
+	public void setCantidad(Double cantidad) {
+		this.cantidad = cantidad;
+	}
+
+
+
+	public UnidadMedida getUnidadMedida() {
+		return unidadMedida;
+	}
+
+
+
+	public void setUnidadMedida(UnidadMedida unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+
+
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+
+
+	public List<Inventario> getInventarios() {
+		return inventarios;
+	}
+
+
+
+	public void setInventarios(List<Inventario> inventarios) {
+		this.inventarios = inventarios;
+	}
+
+
+
 	private static final long serialVersionUID = 1L;
 }

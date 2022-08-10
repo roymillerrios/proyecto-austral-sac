@@ -34,6 +34,10 @@ public class Inventario implements Serializable{
 	@JsonIgnore
 	private List<Material> materiales;
 
+	public Inventario() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}

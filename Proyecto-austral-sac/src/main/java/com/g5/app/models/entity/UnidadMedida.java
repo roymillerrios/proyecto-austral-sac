@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="unidades_medidas")
@@ -23,7 +22,6 @@ public class UnidadMedida implements Serializable {
 	private Long id;
 	
 	@NotEmpty
-	@Size(min=1,max=50,message="La descripcion debe medir entre 1 y 50 de largo")
 	private String descripcion;
 	
 	@NotEmpty
@@ -32,6 +30,10 @@ public class UnidadMedida implements Serializable {
 	@OneToMany(mappedBy = "unidadMedida", fetch = FetchType.LAZY,cascade =CascadeType.PERSIST)
 	private List<Material> materiales;
 
+	public UnidadMedida() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}

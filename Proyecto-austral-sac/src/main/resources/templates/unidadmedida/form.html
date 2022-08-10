@@ -32,7 +32,10 @@
 											<div class="col-4">
 												<h5 class="text">Descripción</h5>
 												<div class="position-relative mb-4">
-													<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control">		
+													<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>	
 												</div>
 											</div>
 										</div>
@@ -41,7 +44,11 @@
 											<div class="col-4">
 												<h5 class="text">Abreviatura</h5>
 												<div class="position-relative mb-4">
-													<input type="text" id="abreviatura" th:field="*{abreviatura}" class="form-control">		
+													<input type="text" id="abreviatura" th:field="*{abreviatura}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('abreviatura')}" th:errors="*{abreviatura}"></small>	
+												
 												</div>
 											</div>
 										</div>

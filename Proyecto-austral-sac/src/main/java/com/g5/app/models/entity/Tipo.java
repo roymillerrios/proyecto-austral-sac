@@ -27,6 +27,10 @@ public class Tipo implements Serializable{
 	@OneToMany(mappedBy = "tipo", fetch = FetchType.LAZY,cascade =CascadeType.PERSIST)
 	private List<Material> materiales;
 	
+	public Tipo() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
