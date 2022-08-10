@@ -11,11 +11,11 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-	      <h1>Dashboard</h1>
+	      <h1>Material</h1>
 	      <nav>
 	        <ol class="breadcrumb">
-	          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	          <li class="breadcrumb-item active">Dashboard</li>
+	          <li class="breadcrumb-item"><a th:href="@{/material/listar}">Listar</a></li>
+	          <li class="breadcrumb-item active">Crear</li>
 	        </ol>
 	      </nav>
 	    </div>
@@ -59,8 +59,8 @@
 	    									<div class="col-6">
 		    									<h5 class="text">Unidad de Medida</h5>
 		    									<div class="position-relative mb-4">
-		    										<select th:field="*{unidadMedida}" id="unidadMedida" class="form-control">
-		    											<option th:each="unidadMedida:${unidadMedida}" th:value="${unidadMedida.id}" th:text="${unidadMedida.descripcion}"></option>
+		    										<select th:field="*{unidadMedida}" id="unidadmedida" class="form-control">
+		    											<option th:each="unidadmedida:${unidadmedida}" th:value="${unidadmedida.id}" th:text="${unidadmedida.descripcion}"></option>
 		    										</select>
 		    									</div>
 		    								</div>
@@ -73,17 +73,23 @@
 		    									</div>
 		    								</div>
 	    								</div>
-	    								<div class="row">
+	    								<!--  <div class="row">
 	    									<div class="col-3"></div>
 	    									<div class="col-6">
 	    										<h5 class="text">Inventario</h5>
 		    									<div class="position-relative mb-4">
 		    										<select th:field="*{inventario}" id="inventario" class="form-control">
-		    											<option th:each="tipo:${inventario}" th:value="${inventario.id}" th:text="${inventario.nombre}"></option>
+		    											<option th:each="inventario:${inventario}" th:value="${inventario.id}" th:text="${inventario.nombre}"></option>
 		    										</select>
 		    									</div>
 	    									</div>
-	    								</div>
+	    								</div>-->
+	    								<div class="row">
+											<div  class="col-lg-5"></div>
+											<div class="col-lg-2">
+												<input type="submit" value="Enviar" class="btn btn-primary mb-2">
+											</div>
+										</div>
 	    							</form>
 	    						</div>
 	    					</div>

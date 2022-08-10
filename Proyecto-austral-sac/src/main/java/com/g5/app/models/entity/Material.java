@@ -41,17 +41,17 @@ public class Material implements Serializable{
 	@NotNull
 	private Double cantidad;
 		
-	@NotEmpty
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="unidad_medida_id")
 	private UnidadMedida unidadMedida;
 	
-	@NotEmpty
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tipo_id")
 	private Tipo tipo;
 	
-	@NotEmpty
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 		cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinTable(name="material_inventario",

@@ -11,14 +11,17 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-	      <h1>Dashboard</h1>
+	      <h1>Inventario</h1>
 	      <nav>
 	        <ol class="breadcrumb">
-	          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-	          <li class="breadcrumb-item active">Dashboard</li>
+	          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+	          <li class="breadcrumb-item active">Listar</li>
 	        </ol>
 	      </nav>
 	    </div>
+	    <h4 class="card-title">
+			<a th:href="@{/inventario/form}" class="btn" style="background: #70b8f0">Crear Inventario</a>
+		</h4>
 	    <section class="section dashboard">
 	    	<div class="row">
 	    		<div class="col-lg-12">
@@ -28,7 +31,7 @@
 	    						<div class="card-body" layout:fragment="contenido">
 	    							<table class="table table-striped">
 										<thead>
-											<tr>
+											<tr style="background: #70b8f0">
 												<th>ID</th>
 												<th>Nombre</th>
 												<th>Ubicación</th>

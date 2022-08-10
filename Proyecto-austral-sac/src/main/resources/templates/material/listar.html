@@ -11,14 +11,17 @@
 
 	<main id="main" class="main">
 		<div class="pagetitle">
-	      <h1>Dashboard</h1>
+	      <h1>Material</h1>
 	      <nav>
 	        <ol class="breadcrumb">
-	          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+	          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
 	          <li class="breadcrumb-item active">Dashboard</li>
 	        </ol>
 	      </nav>
 	    </div>
+	    <h4 class="card-title">
+			<a th:href="@{/material/form}" class="btn" style="background: #70b8f0">Crear Material</a>
+		</h4>
 	    <section class="section dashboard">
 	    	<div class="row">
 	    		<div class="col-lg-12">
@@ -26,7 +29,37 @@
 	    				<div class="col-12">
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
-	    							
+	    							<table class="table table-striped">
+										<thead>
+											<tr style="background: #70b8f0">
+												<th>ID</th>
+												<th>Código</th>
+												<th>Nombre</th>
+												<th>Marca</th>
+												<th>Cantidad</th>
+												<th>Unidad de Medida</th>
+												<th>Tipo</th>
+												<th>Editar</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each ="material: ${material}">
+												<th th:text="${material.id}"></th>
+												<th th:text="${material.codigo}"></th>
+												<th th:text="${material.nombre}"></th>
+												<th th:text="${material.marca}"></th>
+												<th th:text="${material.cantidad}"></th>
+												<th th:text="${material.unidadMedida.descripcion}"></th>
+												<th th:text="${material.tipo.descripcion}"></th>
+												<th><a class="btn btn-success btn-sm" 
+													th:href="@{/material/form/} + ${material.id}" th:text="'Editar'"></a></th>
+												<th><a class="btn btn-danger btn-sm"
+													th:href="@{/material/eliminar/} + ${material.id}" th:text="'Eliminar'"
+													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
+											</tr>
+										</tbody>
+									</table>
 	    						</div>
 	    					</div>
 	    				</div>

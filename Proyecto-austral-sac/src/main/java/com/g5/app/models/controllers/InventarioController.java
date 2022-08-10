@@ -27,6 +27,11 @@ public class InventarioController {
 	@Autowired
 	private IInventarioService inventarioService;
 	
+	@RequestMapping(value= "/inicio", method = RequestMethod.GET)
+	public String inicio(Model model) {
+		return "inventario/inicio";
+	}
+	
 	@RequestMapping(value= "/form", method = RequestMethod.GET)
 	public String crear(Map<String, Object> model) {
 		Inventario inventario = new Inventario();
