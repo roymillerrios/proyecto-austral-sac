@@ -44,10 +44,10 @@
 												<th th:text="${inventario.id}"></th>
 												<th th:text="${inventario.nombre}"></th>
 												<th th:text="${inventario.ubicacion}"></th>
-												<th><a class="btn btn-success btn-sm" 
-													th:href="@{/inventario/form/} + ${inventario.id}" th:text="'Editar'"></a></th>
-												<th><a class="btn btn-danger btn-sm"
-													th:href="@{/inventario/eliminar/} + ${inventario.id}" th:text="'Eliminar'"
+												<th><a class="btn btn-success btn-sm bi bi-pencil-square" 
+													th:href="@{/inventario/form/} + ${inventario.id}"></a></th>
+												<th><a class="btn btn-danger btn-sm bi bi-trash"
+													th:href="@{/inventario/eliminar/} + ${inventario.id}"
 													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
 											</tr>
 										</tbody>

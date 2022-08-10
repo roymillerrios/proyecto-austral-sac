@@ -42,10 +42,11 @@
 											<tr th:each ="tipo: ${tipo}">
 												<th th:text="${tipo.id}"></th>
 												<th th:text="${tipo.descripcion}"></th>
-												<th><a class="btn btn-success btn-sm" 
-													th:href="@{/tipo/form/} + ${tipo.id}" th:text="'Editar'"></a></th>
-												<th><a class="btn btn-danger btn-sm"
-													th:href="@{/tipo/eliminar/} + ${tipo.id}" th:text="'Eliminar'"
+												<th>
+												<a class="btn btn-success btn-sm bi bi-pencil-square"
+													th:href="@{/tipo/form/} + ${tipo.id}" ></a></th>
+												<th><a class="btn btn-danger btn-sm bi bi-trash"
+													th:href="@{/tipo/eliminar/} + ${tipo.id}"
 													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
 											</tr>
 										</tbody>

@@ -52,10 +52,10 @@
 												<th th:text="${material.cantidad}"></th>
 												<th th:text="${material.unidadMedida.descripcion}"></th>
 												<th th:text="${material.tipo.descripcion}"></th>
-												<th><a class="btn btn-success btn-sm" 
-													th:href="@{/material/form/} + ${material.id}" th:text="'Editar'"></a></th>
-												<th><a class="btn btn-danger btn-sm"
-													th:href="@{/material/eliminar/} + ${material.id}" th:text="'Eliminar'"
+												<th><a class="btn btn-success btn-sm bi bi-pencil-square" 
+													th:href="@{/material/form/} + ${material.id}"></a></th>
+												<th><a class="btn btn-danger btn-sm bi bi-trash"
+													th:href="@{/material/eliminar/} + ${material.id}"
 													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
 											</tr>
 										</tbody>
