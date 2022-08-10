@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +21,7 @@ import com.g5.app.models.service.ITipoService;
 
 @Controller
 @RequestMapping(value="/tipo")
+@SessionAttributes("tipo")
 public class TipoController {
 	
 	@Autowired
@@ -47,7 +49,7 @@ public class TipoController {
 		tipoService.save(tipo);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "tipo/listar";
+		return "redirect:/tipo/listar";
 	}
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)
@@ -60,6 +62,16 @@ public class TipoController {
 	@GetMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id")Long id,Map<String, Object> model,RedirectAttributes flash) {
 		Tipo tipo =null;
+		if (id > 0) {
+			tipo = tipoService.findOne(id);
+			if (tipo == null) {
+				flash.addFlashAttribute("error", "El ID del tipo no existe en la BBDD!");
+				return "redirect:/tipo/listar";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID del tipo no puede ser cero!");
+			return "redirect:/tipo/listar";
+		}
 	    model.put("tipo", tipo);
 		model.put("titulo", "Editar Tipo");
 		return "tipo/form";
@@ -73,6 +85,6 @@ public class TipoController {
 			flash.addFlashAttribute("success", "Tipo eliminado con éxito!");
 
 		}
-		return "tipo/listar";
+		return "redirect:/tipo/listar";
 	}
 }

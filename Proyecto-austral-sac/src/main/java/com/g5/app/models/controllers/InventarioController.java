@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +21,7 @@ import com.g5.app.models.service.IInventarioService;
 
 @Controller
 @RequestMapping(value="/inventario")
+@SessionAttributes("inventario")
 public class InventarioController {
 	
 	@Autowired
@@ -47,7 +49,7 @@ public class InventarioController {
 		inventarioService.save(inventario);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "inventario/listar";
+		return "redirect:/inventario/listar";
 	}
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)
@@ -60,6 +62,16 @@ public class InventarioController {
 	@GetMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id")Long id,Map<String, Object> model,RedirectAttributes flash) {
 		Inventario inventario =null;
+		if (id > 0) {
+			inventario = inventarioService.findOne(id);
+			if (inventario == null) {
+				flash.addFlashAttribute("error", "El ID del tipo no existe en la BBDD!");
+				return "redirect:/tipo/listar";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID del tipo no puede ser cero!");
+			return "redirect:/tipo/listar";
+		}
 	    model.put("inventario", inventario);
 		model.put("titulo", "Editar Inventario");
 		return "inventario/form";
@@ -73,6 +85,6 @@ public class InventarioController {
 			flash.addFlashAttribute("success", "Inventario eliminado con éxito!");
 
 		}
-		return "inventario/listar";
+		return "redirect:/inventario/listar";
 	}
 }

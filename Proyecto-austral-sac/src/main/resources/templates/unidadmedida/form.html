@@ -26,28 +26,22 @@
 	    				<div class="col-12">
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
-	    							<form th:action="@{/inventario/form}" th:object="${inventario}" method="post" enctype="multipart/form-data">
+	    							<form th:action="@{/unidadmedida/form}" th:object="${unidadmedida}" method="post" enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-4"></div>
 											<div class="col-4">
-												<h5 class="text">Nombre</h5>
+												<h5 class="text">Descripción</h5>
 												<div class="position-relative mb-4">
-													<input type="text" id="nombre" th:field="*{nombre}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>		
+													<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control">		
 												</div>
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-4"></div>
 											<div class="col-4">
-												<h5 class="text">Ubicación</h5>
+												<h5 class="text">Abreviatura</h5>
 												<div class="position-relative mb-4">
-													<input type="text" id="ubicacion" th:field="*{ubicacion}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>		
+													<input type="text" id="abreviatura" th:field="*{abreviatura}" class="form-control">		
 												</div>
 											</div>
 										</div>

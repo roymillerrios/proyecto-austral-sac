@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +21,7 @@ import com.g5.app.models.service.IUnidadMedidaService;
 
 @Controller
  @RequestMapping(value="/unidadmedida")
+@SessionAttributes("unidadmedida")
 public class UnidadMedidaController {
 	
 	@Autowired
@@ -47,7 +49,7 @@ public class UnidadMedidaController {
 		unidadmedidaService.save(unidadmedida);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "unidadmedida/listar";
+		return "redirect:/unidadmedida/listar";
 	}
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)
@@ -60,6 +62,16 @@ public class UnidadMedidaController {
 	@GetMapping(value = "/form/{id}")
 	public String editar(@PathVariable(value = "id")Long id,Map<String, Object> model,RedirectAttributes flash) {
 		UnidadMedida unidadmedida =null;
+		if (id > 0) {
+			unidadmedida = unidadmedidaService.findOne(id);
+			if (unidadmedida == null) {
+				flash.addFlashAttribute("error", "El ID del tipo no existe en la BBDD!");
+				return "redirect:/unidadmedida/listar";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID del tipo no puede ser cero!");
+			return "redirect:/unidadmedida/listar";
+		}
 	    model.put("unidadmedida", unidadmedida);
 		model.put("titulo", "Editar Unidad de Medida");
 		return "unidadmedida/form";
@@ -73,6 +85,6 @@ public class UnidadMedidaController {
 			flash.addFlashAttribute("success", "Unidad de Medida eliminado con éxito!");
 
 		}
-		return "unidadmedida/listar";
+		return "redirect:/unidadmedida/listar";
 	}
 }

@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+	<meta charset="UTF-8">
 </head>
 <body>
+	
+	<header th:replace="layout/layout :: header"></header>
+	
+	<aside th:replace="layout/layout :: aside"></aside>
 
+	<main id="main" class="main">
+		<div class="pagetitle">
+	      <h1>Dashboard</h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+	          <li class="breadcrumb-item active">Dashboard</li>
+	        </ol>
+	      </nav>
+	    </div>
+	    <section class="section dashboard">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<div class="row">
+	    				<div class="col-12">
+	    					<div class="card">
+	    						<div class="card-body" layout:fragment="contenido">
+	    							<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Descripción</th>
+												<th>Editar</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each ="tipo: ${tipo}">
+												<th th:text="${tipo.id}"></th>
+												<th th:text="${tipo.descripcion}"></th>
+												<th><a class="btn btn-success btn-sm" 
+													th:href="@{/tipo/form/} + ${tipo.id}" th:text="'Editar'"></a></th>
+												<th><a class="btn btn-danger btn-sm"
+													th:href="@{/tipo/eliminar/} + ${tipo.id}" th:text="'Eliminar'"
+													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
+											</tr>
+										</tbody>
+									</table>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </section>
+	</main>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+	
 </body>
 </html>

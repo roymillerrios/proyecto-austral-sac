@@ -26,23 +26,29 @@
 	    				<div class="col-12">
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
-	    							<form th:action="@{/tipo/form}" th:object="${tipo}" method="post" enctype="multipart/form-data">
-										<div class="row">
-											<div class="col-4"></div>
-											<div class="col-4">
-												<h5 class="text">Descripción</h5>
-												<div class="position-relative mb-4">
-													<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control">		
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div  class="col-lg-5"></div>
-											<div class="col-lg-2">
-												<input type="submit" value="Enviar" class="btn btn-primary mb-2">
-											</div>
-										</div>	
-									</form>
+	    							<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Descripción</th>
+												<th>Abreviatura</th>
+												<th>Editar</th>
+												<th>Eliminar</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each ="unidadmedida: ${unidadmedida}">
+												<th th:text="${unidadmedida.id}"></th>
+												<th th:text="${unidadmedida.descripcion}"></th>
+												<th th:text="${unidadmedida.abreviatura}"></th>
+												<th><a class="btn btn-success btn-sm" 
+													th:href="@{/unidadmedida/form/} + ${unidadmedida.id}" th:text="'Editar'"></a></th>
+												<th><a class="btn btn-danger btn-sm"
+													th:href="@{/unidadmedida/eliminar/} + ${unidadmedida.id}" th:text="'Eliminar'"
+													onclick="return confirm('¿Estás seguro que quieres eliminar?');"></a></th>
+											</tr>
+										</tbody>
+									</table>
 	    						</div>
 	    					</div>
 	    				</div>
