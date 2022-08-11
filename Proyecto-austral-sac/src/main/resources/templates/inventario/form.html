@@ -19,6 +19,7 @@
 	        </ol>
 	      </nav>
 	    </div>
+	    <hr style="color: blue;"  size="10"/>
 	    <section class="section dashboard">
 	    	<div class="row">
 	    		<div class="col-lg-12">
@@ -28,28 +29,29 @@
 	    						<div class="card-body" layout:fragment="contenido">
 	    							<form th:action="@{/inventario/form}" th:object="${inventario}" method="post" enctype="multipart/form-data">
 										<div class="row">
-											<div class="col-4"></div>
-											<div class="col-4">
-												<h5 class="text">Nombre</h5>
-												<div class="position-relative mb-4">
-													<input type="text" id="nombre" th:field="*{nombre}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>		
+											
+												<div class="form-group row">
+													
+													<div class="col-sm-4">
+														<h5><label class="col-form-label">Nombre</label></h5>
+														<div class="position-relative mb-4 ">
+															<input type="text" id="nombre" th:field="*{nombre}" class="form-control"
+																th:errorclass="'form-control alert-danger'"> <small
+																class="form-text text-danger"
+																th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>		
+														</div>
+													</div>
+													<div class="col-sm-4">
+														<h5><label class="col-form-label">Ubicación</label></h5>
+														<div class="position-relative mb-4 sm-6" >
+															<input type="text" id="nombre" th:field="*{ubicacion}" class="form-control"
+																th:errorclass="'form-control alert-danger'"> <small
+																class="form-text text-danger"
+																th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></small>		
+														</div>
+													</div>
 												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-4"></div>
-											<div class="col-4">
-												<h5 class="text">Ubicación</h5>
-												<div class="position-relative mb-4">
-													<input type="text" id="ubicacion" th:field="*{ubicacion}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></small>		
-												</div>
-											</div>
+											
 										</div>
 										<div class="row">
 											<div  class="col-lg-5"></div>

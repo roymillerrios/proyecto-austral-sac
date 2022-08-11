@@ -19,6 +19,7 @@
 	        </ol>
 	      </nav>
 	    </div>
+	    <hr style="color: blue;"  size="10"/>
 	    <section class="section dashboard">
 	    	<div class="row">
 	    		<div class="col-lg-12">
@@ -28,9 +29,8 @@
 	    						<div class="card-body" layout:fragment="contenido">
 	    							<form th:action="@{/unidadmedida/form}" th:object="${unidadmedida}" method="post" enctype="multipart/form-data">
 										<div class="row">
-											<div class="col-4"></div>
-											<div class="col-4">
-												<h5 class="text">Descripción</h5>
+											<div class="col-sm-5">
+												<h5><label class="col-form-label">Descripción</label></h5>
 												<div class="position-relative mb-4">
 													<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control"
 														th:errorclass="'form-control alert-danger'"> <small
@@ -38,20 +38,18 @@
 														th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>	
 												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-4"></div>
-											<div class="col-4">
-												<h5 class="text">Abreviatura</h5>
+											<div class="col-sm-3">
+												<h5><label class="col-form-label">Abreviatura</label></h5>
 												<div class="position-relative mb-4">
 													<input type="text" id="abreviatura" th:field="*{abreviatura}" class="form-control"
 														th:errorclass="'form-control alert-danger'"> <small
 														class="form-text text-danger"
 														th:if="${#fields.hasErrors('abreviatura')}" th:errors="*{abreviatura}"></small>	
-												
 												</div>
 											</div>
+
 										</div>
+
 										<div class="row">
 											<div  class="col-lg-5"></div>
 											<div class="col-lg-2">
