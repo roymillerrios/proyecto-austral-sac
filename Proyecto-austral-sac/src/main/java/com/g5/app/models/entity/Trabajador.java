@@ -81,6 +81,8 @@ public class Trabajador {
 	@Column(name = "CertDomiciliario")
 	private byte[] CertDomiciliario;
 
+	private String foto;
+	
 	public long getId() {
 		return id;
 	}
@@ -95,6 +97,14 @@ public class Trabajador {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
 	public String getDNI() {
