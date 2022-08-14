@@ -33,6 +33,7 @@ import com.g5.app.models.service.ITrabajadorService;
 
 @Controller
 @SessionAttributes("trabajador")
+@RequestMapping("trabajador")
 public class TrabajadorController {
 
 	@Autowired
@@ -44,6 +45,7 @@ public class TrabajadorController {
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 
+		
 		Resource recurso = null;
 
 		try {
@@ -64,7 +66,7 @@ public class TrabajadorController {
 		Trabajador trabajador = trabajadorService.findOne(id);
 		if (trabajador == null) {
 			flash.addFlashAttribute("error", "El cliente no existe en la base de datos");
-			return "redirect:/listar";
+			return "redirect:/trabajador/listar";
 		}
 
 		model.put("cliente", trabajador);
@@ -83,7 +85,7 @@ public class TrabajadorController {
 		model.addAttribute("titulo", "Listado de trabajadores");
 		model.addAttribute("trabajadores", trabajadores);
 		model.addAttribute("page", pageRender);
-		return "listar";
+		return "trabajador/listar";
 	}
 
 	@RequestMapping(value = "/form")
@@ -92,7 +94,7 @@ public class TrabajadorController {
 		Trabajador trabajador = new Trabajador();
 		model.put("trabajador", trabajador);
 		model.put("titulo", "Formulario de Trabajador");
-		return "form";
+		return "trabajador/form";
 	}
 
 	@RequestMapping(value = "/form/{id}")
@@ -103,16 +105,16 @@ public class TrabajadorController {
 		if (id > 0) {
 			trabajador = trabajadorService.findOne(id);
 			if (trabajador == null) {
-				flash.addFlashAttribute("error", "El ID del cliente no existe en la BBDD!");
+				flash.addFlashAttribute("error", "El ID del trabajador no existe en la BBDD!");
 				return "redirect:/listar";
 			}
 		} else {
-			flash.addFlashAttribute("error", "El ID del cliente no puede ser cero!");
+			flash.addFlashAttribute("error", "El ID del trabajador no puede ser cero!");
 			return "redirect:/listar";
 		}
-		model.put("cliente", trabajador);
-		model.put("titulo", "Editar Cliente");
-		return "form";
+		model.put("tabajador", trabajador);
+		model.put("titulo", "Editar Trabajador");
+		return "trabajador/form";
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
@@ -150,7 +152,7 @@ public class TrabajadorController {
 		trabajadorService.save(trabajador);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "redirect:listar";
+		return "redirect:/trabajador/listar";
 	}
 
 	@RequestMapping(value = "/eliminar/{id}")
@@ -167,6 +169,6 @@ public class TrabajadorController {
 			}
 
 		}
-		return "redirect:/listar";
+		return "redirect:/trabajador/listar";
 	}
 }

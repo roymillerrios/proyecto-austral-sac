@@ -28,7 +28,7 @@ public class Trabajador {
 	
 	@Id
 	@Column(name="idTrabajador")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private long id;
 	
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false, mappedBy = "trabajador")
@@ -36,53 +36,45 @@ public class Trabajador {
     private Usuario usuario;
 	
 	@NotEmpty
-	@Column(name = "DNI")
 	private String DNI;
 	
 	@NotNull
-	@Column(name = "FechaIngreso")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
-	private Date FechaIngreso;
+	private Date fechaIngreso;
 	
 	@NotEmpty
-	@Column(name = "NombreCompleto")
-	private String NombreCompleto;
+	private String nombreCompleto;
 	
 	@NotEmpty
-	@Column(name = "ApellidoMaterno")
-	private String ApellidoMaterno;
+	private String apellidoMaterno;
 	
 	@NotEmpty
-	@Column(name = "ApellidoPaterno")
-	private String ApellidoPaterno;
+	private String apellidoPaterno;
+	
+	private String edad;
+	
+	private String sexo;
+	
+	private String celular;
 	
 	@NotEmpty
-	@Column (name = "ExamenSeguridad")
-	private String ExamenSeguridad;
+	private String examenSeguridad;
 	
 	@Lob
-	@Column(name = "SCTRPension")
-	private byte[] SCTRPension;
+	private String SCTRPension;
 	
 	@Lob
-	@Column(name = "SCTRSalud")
-	private byte[] SCTRSalud;
+	private String SCTRSalud;
 	
 	@Lob
-	@Column(name = "AntPenales")
-	private byte[] AntPenales;
+	private String antPenales;
 	
 	@Lob
-	@Column(name = "AntPoliciales")
-	private byte[] AntPoliciales;
+	private String antPoliciales;
 	
-	@Lob
-	@Column(name = "CertDomiciliario")
-	private byte[] CertDomiciliario;
-
 	private String foto;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -98,14 +90,6 @@ public class Trabajador {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
 
 	public String getDNI() {
 		return DNI;
@@ -116,84 +100,110 @@ public class Trabajador {
 	}
 
 	public Date getFechaIngreso() {
-		return FechaIngreso;
+		return fechaIngreso;
 	}
 
 	public void setFechaIngreso(Date fechaIngreso) {
-		FechaIngreso = fechaIngreso;
+		this.fechaIngreso = fechaIngreso;
 	}
 
 	public String getNombreCompleto() {
-		return NombreCompleto;
+		return nombreCompleto;
 	}
 
 	public void setNombreCompleto(String nombreCompleto) {
-		NombreCompleto = nombreCompleto;
+		this.nombreCompleto = nombreCompleto;
 	}
 
 	public String getApellidoMaterno() {
-		return ApellidoMaterno;
+		return apellidoMaterno;
 	}
 
 	public void setApellidoMaterno(String apellidoMaterno) {
-		ApellidoMaterno = apellidoMaterno;
+		this.apellidoMaterno = apellidoMaterno;
 	}
 
 	public String getApellidoPaterno() {
-		return ApellidoPaterno;
+		return apellidoPaterno;
 	}
 
 	public void setApellidoPaterno(String apellidoPaterno) {
-		ApellidoPaterno = apellidoPaterno;
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getEdad() {
+		return edad;
+	}
+
+	public void setEdad(String edad) {
+		this.edad = edad;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
 	}
 
 	public String getExamenSeguridad() {
-		return ExamenSeguridad;
+		return examenSeguridad;
 	}
 
 	public void setExamenSeguridad(String examenSeguridad) {
-		ExamenSeguridad = examenSeguridad;
+		this.examenSeguridad = examenSeguridad;
 	}
 
-	public byte[] getSCTRPension() {
+	public String getSCTRPension() {
 		return SCTRPension;
 	}
 
-	public void setSCTRPension(byte[] sCTRPension) {
+	public void setSCTRPension(String sCTRPension) {
 		SCTRPension = sCTRPension;
 	}
 
-	public byte[] getSCTRSalud() {
+	public String getSCTRSalud() {
 		return SCTRSalud;
 	}
 
-	public void setSCTRSalud(byte[] sCTRSalud) {
+	public void setSCTRSalud(String sCTRSalud) {
 		SCTRSalud = sCTRSalud;
 	}
 
-	public byte[] getAntPenales() {
-		return AntPenales;
+	public String getAntPenales() {
+		return antPenales;
 	}
 
-	public void setAntPenales(byte[] antPenales) {
-		AntPenales = antPenales;
+	public void setAntPenales(String antPenales) {
+		this.antPenales = antPenales;
 	}
 
-	public byte[] getAntPoliciales() {
-		return AntPoliciales;
+	public String getAntPoliciales() {
+		return antPoliciales;
 	}
 
-	public void setAntPoliciales(byte[] antPoliciales) {
-		AntPoliciales = antPoliciales;
+	public void setAntPoliciales(String antPoliciales) {
+		this.antPoliciales = antPoliciales;
 	}
 
-	public byte[] getCertDomiciliario() {
-		return CertDomiciliario;
+	public String getFoto() {
+		return foto;
 	}
 
-	public void setCertDomiciliario(byte[] certDomiciliario) {
-		CertDomiciliario = certDomiciliario;
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
+	
+
 	
 	
 }
