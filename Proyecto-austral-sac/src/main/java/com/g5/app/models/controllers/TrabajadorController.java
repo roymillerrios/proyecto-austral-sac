@@ -33,7 +33,7 @@ import com.g5.app.models.service.ITrabajadorService;
 
 @Controller
 @SessionAttributes("trabajador")
-@RequestMapping("trabajador")
+@RequestMapping(value="/trabajador")
 public class TrabajadorController {
 
 	@Autowired
@@ -45,7 +45,6 @@ public class TrabajadorController {
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 
-		
 		Resource recurso = null;
 
 		try {
@@ -69,8 +68,8 @@ public class TrabajadorController {
 			return "redirect:/trabajador/listar";
 		}
 
-		model.put("cliente", trabajador);
-		model.put("titulo", "Detalle cliente: " + trabajador.getNombreCompleto());
+		model.put("trabajador", trabajador);
+		model.put("titulo", "Detalle Trabajador: " + trabajador.getNombreCompleto());
 		return "ver";
 	}
 
@@ -122,19 +121,19 @@ public class TrabajadorController {
 			@RequestParam("file") MultipartFile foto, RedirectAttributes flash, SessionStatus status) {
 
 		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Formulario de Cliente");
-			return "form";
+			model.addAttribute("titulo", "Formulario de Trabajadores");
+			return "trabajador/form";
 		}
 
 		if (!foto.isEmpty()) {
 
-			if (trabajador.getId() > 0 && trabajador.getFoto() != null
-					&& trabajador.getFoto().length() > 0) {
+			if (trabajador.getId() != null && trabajador.getId() > 0 && trabajador.getFoto() != null && trabajador.getFoto().length() > 0) {
 
 				uploadFileService.delete(trabajador.getFoto());
 			}
 
 			String uniqueFilename = null;
+			
 			try {
 				uniqueFilename = uploadFileService.copy(foto);
 			} catch (IOException e) {

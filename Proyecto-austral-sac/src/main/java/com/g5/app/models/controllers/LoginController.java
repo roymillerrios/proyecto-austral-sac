@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.g5.app.models.entity.Usuario;
+import com.g5.app.models.entity.Trabajador;
 
 
 @Controller
@@ -21,9 +21,9 @@ public class LoginController {
 		
 		@PostMapping
 		public String ingresar(Model model) {
-			Usuario usuario= new Usuario();
+			Trabajador trabajador= new Trabajador();
 			 model.addAttribute("titulo","Sistema Web - AUSTRAL SAC");
-			 model.addAttribute("usuario",usuario);
+			 model.addAttribute("trabajador",trabajador);
 			return "index";
 		}
 	

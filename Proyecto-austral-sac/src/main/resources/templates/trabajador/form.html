@@ -90,7 +90,21 @@
 										</div>
 										<div class="dropdown-divider">Informacion Adicional</div>
 										<div class="row">
-											
+											<div class="col-sm-4">
+												<h5><label class="col-form-label">DNI:</label></h5>
+												<div class="position-relative mb-4 ">
+												<input type="text" id="DNI" th:field="*{DNI}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('DNI')}" th:errors="*{DNI}"></small>		
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<h5 class="text">Foto</h5>
+												<div class="position-relative mb-4">
+														<input type="file" name="file" class="form-control"/>
+												</div>
+											</div>
 										</div>
 										<div class="row">
 											

@@ -1,6 +1,9 @@
 package com.g5.app.models.entity;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,9 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,23 +25,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
-@Table(name="trabajador")
-public class Trabajador {
+@Table(name="trabajadores")
+public class Trabajador implements Serializable {
 
-	
 	@Id
-	@Column(name="idTrabajador")
-
-	private long id;
-	
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL, optional = false, mappedBy = "trabajador")
-    @PrimaryKeyJoinColumn(referencedColumnName = "id")
-    private Usuario usuario;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	@NotEmpty
 	private String DNI;
 	
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaIngreso;
@@ -56,47 +52,65 @@ public class Trabajador {
 	
 	private String sexo;
 	
-	private String celular;
+	@NotEmpty
+	private String email;
 	
 	@NotEmpty
-	private String examenSeguridad;
+	private String contraseña;
 	
-	@Lob
-	private String SCTRPension;
-	
-	@Lob
-	private String SCTRSalud;
-	
-	@Lob
-	private String antPenales;
-	
-	@Lob
-	private String antPoliciales;
+	private String celular;
 	
 	private String foto;
 
-	public long getId() {
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name="rol_trabajador",
+			joinColumns = @JoinColumn(name="trabajador_id"),
+			inverseJoinColumns = @JoinColumn(name="rol_id")
+			)
+	private Set<Rol> roles = new HashSet<>();
+	
+	public Trabajador() {
+		
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	public String getDNI() {
 		return DNI;
 	}
 
-	public void setDNI(String dNI) {
-		DNI = dNI;
+	public void setDNI(String DNI) {
+		this.DNI = DNI;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getContraseña() {
+		return contraseña;
+	}
+
+	public void setContraseña(String contraseña) {
+		this.contraseña = contraseña;
+	}
+
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
 	}
 
 	public Date getFechaIngreso() {
@@ -155,45 +169,6 @@ public class Trabajador {
 		this.celular = celular;
 	}
 
-	public String getExamenSeguridad() {
-		return examenSeguridad;
-	}
-
-	public void setExamenSeguridad(String examenSeguridad) {
-		this.examenSeguridad = examenSeguridad;
-	}
-
-	public String getSCTRPension() {
-		return SCTRPension;
-	}
-
-	public void setSCTRPension(String sCTRPension) {
-		SCTRPension = sCTRPension;
-	}
-
-	public String getSCTRSalud() {
-		return SCTRSalud;
-	}
-
-	public void setSCTRSalud(String sCTRSalud) {
-		SCTRSalud = sCTRSalud;
-	}
-
-	public String getAntPenales() {
-		return antPenales;
-	}
-
-	public void setAntPenales(String antPenales) {
-		this.antPenales = antPenales;
-	}
-
-	public String getAntPoliciales() {
-		return antPoliciales;
-	}
-
-	public void setAntPoliciales(String antPoliciales) {
-		this.antPoliciales = antPoliciales;
-	}
 
 	public String getFoto() {
 		return foto;
@@ -204,6 +179,6 @@ public class Trabajador {
 	}
 	
 
-	
+	private static final long serialVersionUID = 1L;
 	
 }

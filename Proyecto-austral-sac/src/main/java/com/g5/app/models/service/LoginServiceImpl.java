@@ -7,24 +7,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.g5.app.models.dao.IUsuarioDao;
+import com.g5.app.models.dao.ITrabajadorDao;
 import com.g5.app.models.dao.UsuarioDetails;
-import com.g5.app.models.entity.Usuario;
+import com.g5.app.models.entity.Trabajador;
 
 @Service
 public class LoginServiceImpl implements UserDetailsService{
 
 	@Autowired
-	private IUsuarioDao usuarioDao;
+	private ITrabajadorDao trabajadorDao;
 	
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = usuarioDao.findByEmail(username);
-        if(usuario == null) {
+		Trabajador trabajador = trabajadorDao.findByEmail(username);
+        if(trabajador == null) {
             throw new UsernameNotFoundException("Email o Contraseña inválidos");
         }
-        return new UsuarioDetails(usuario);
+        return new UsuarioDetails(trabajador);
 	}
 	
 }

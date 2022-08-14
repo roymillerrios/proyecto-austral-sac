@@ -10,24 +10,24 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.g5.app.models.entity.Rol;
-import com.g5.app.models.entity.Usuario;
+import com.g5.app.models.entity.Trabajador;
 
 public class UsuarioDetails implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	private Usuario usuario;
+	private Trabajador trabajador;
 	
 	
-	public UsuarioDetails(Usuario usuario) {
+	public UsuarioDetails(Trabajador trabajador) {
 		super();
-		this.usuario = usuario;
+		this.trabajador = trabajador;
 	}
 
 
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<Rol> roles = usuario.getRoles();
+		Set<Rol> roles = trabajador.getRoles();
 		
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
@@ -40,12 +40,12 @@ public class UsuarioDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return usuario.getContraseña();
+		return trabajador.getContraseña();
 	}
 
 	@Override
 	public String getUsername() {
-		return usuario.getEmail();
+		return trabajador.getEmail();
 	}
 
 	@Override
@@ -73,9 +73,9 @@ public class UsuarioDetails implements UserDetails {
 	}
 	
 	public String getNombres() {
-		return this.usuario.getTrabajador().getApellidoPaterno() + " " +
-				this.usuario.getTrabajador().getApellidoMaterno() + " " +
-				this.usuario.getTrabajador().getNombreCompleto();
+		return this.trabajador.getApellidoPaterno() + " " +
+				this.trabajador.getApellidoMaterno() + " " +
+				this.trabajador.getNombreCompleto();
 	}
 	
 
