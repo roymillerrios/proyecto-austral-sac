@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.g5.app.models.dao.IInventarioDao;
 import com.g5.app.models.dao.ITipoDao;
 import com.g5.app.models.dao.IUnidadMedidaDao;
+import com.g5.app.models.entity.Inventario;
 import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Tipo;
 import com.g5.app.models.entity.UnidadMedida;
@@ -42,6 +44,8 @@ public class MaterialController {
 	@Autowired
 	private IUnidadMedidaDao unidadmedidaDao;
 	
+	@Autowired
+	private IInventarioDao inventarioDao;
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
@@ -49,7 +53,7 @@ public class MaterialController {
 		
 		Page<Material> material = materialService.findAll(pageRequest);
 		PageRender<Material> pageRender = new PageRender<Material>("/material/listar", material);
-		model.addAttribute("titulo", "Listado de Peliculas");
+		model.addAttribute("titulo", "Listado de Materiales");
 		model.addAttribute("material", material);
 		model.addAttribute("page", pageRender);
 		return "material/listar";
@@ -60,11 +64,13 @@ public class MaterialController {
 		Material material = new Material();
 		List<Tipo> listaTipo = tipoDao.findAll();
 		List<UnidadMedida> listaUnidadMedida = unidadmedidaDao.findAll();
+		List<Inventario> listaInventario = inventarioDao.findAll();
 	
 		model.put("material", material);
 		model.put("titulo", "Formulario de Material");
 		model.put("tipo",listaTipo);
 		model.put("unidadmedida",listaUnidadMedida);
+		model.put("inventario",listaInventario);
 		return "material/form";
 	
 	}
@@ -75,6 +81,7 @@ public class MaterialController {
 		Material material = new Material();
 		List<Tipo> listaTipo = tipoDao.findAll();
 		List<UnidadMedida> listaUnidadMedida = unidadmedidaDao.findAll();
+		List<Inventario> listaInventario = inventarioDao.findAll();
 	
 		if(id != null) {
 			material = materialService.findOne(id);
@@ -90,6 +97,7 @@ public class MaterialController {
 		model.put("titulo", "Editar Material");
 		model.put("tipo",listaTipo);
 		model.put("unidadmedida",listaUnidadMedida);
+		model.put("inventario",listaInventario);
 		return "material/form";
 	}
 	

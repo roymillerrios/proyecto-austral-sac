@@ -26,8 +26,8 @@ public class MaterialServiceImpl implements IMaterialService {
 	
 	@Override
 	@Transactional
-	public void save(Material pelicula) {
-		materialDao.save(pelicula);
+	public void save(Material material) {
+		materialDao.save(material);
 	}
 	
 	@Override
