@@ -28,6 +28,46 @@
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
 	    							<form th:action="@{/trabajador/form}" th:object="${trabajador}" method="post" enctype="multipart/form-data">
+										
+										<div class="row">
+											<div class="col-sm-6">
+												<h5><label class="col-form-label">Rol:</label></h5>
+												<div class="position-relative mb-4 ">
+													<select id="elegir_roles" class="form-control" name="elegir_roles"></select>
+													
+														<script type="text/javascript">
+														
+														$(document).ready(function() {
+															$("#elegir_roles").autocomplete({
+																source : function(request, response) {
+															 		$.ajax({
+															 				url : "/trabajador/cargar-roles/",
+																			dataType : "json",
+																			data: data,
+																			succes: function(data){
+																				response($.map(data, function(item) {
+																					return {
+																						value : item.id,
+																						label : item.nombre,
+																					};
+																				}));
+																			},
+															 		});
+															});
+														});
+														</script>		
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<h5><label class="col-form-label">Id:</label></h5>
+												<div class="position-relative mb-4 ">
+												<input type="text" id="id" th:field="*{id}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>		
+												</div>
+											</div>
+										</div>
 										<div class="row">
 											<div class="col">
 												<h5><label class="col-form-label">Nombre Completo:</label></h5>
@@ -88,11 +128,14 @@
 												</div>
 											</div>
 										</div>
-										<div class="dropdown-divider">Informacion Adicional</div>
+										<div class="row">
+											<div class="col"><p>Informacion Adicional</div>
+											<div class="dropdown-divider col-sm-9"></div>
+										</div>
 										<div class="row">
 											<div class="col-sm-4">
 												<h5><label class="col-form-label">DNI:</label></h5>
-												<div class="position-relative mb-4 ">
+												<div class="position-relative">
 												<input type="text" id="DNI" th:field="*{DNI}" class="form-control"
 														th:errorclass="'form-control alert-danger'"> <small
 														class="form-text text-danger"
@@ -100,29 +143,41 @@
 												</div>
 											</div>
 											<div class="col-sm-4">
-												<h5 class="text">Foto</h5>
-												<div class="position-relative mb-4">
+												<h5 class="text">Foto:</h5>
+												<div class="position-relative">
 														<input type="file" name="file" class="form-control"/>
 												</div>
 											</div>
+											<div class="col-sm-4">
+												<h5 class="text">Fecha Contrato :</h5>
+												<div class="input-group">
+											    <span class="input-group-text" id="basic-addon1">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-week" viewBox="0 0 16 16">
+													  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"></path>
+													  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4zM11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm-5 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"></path>
+													</svg>
+												 </span>
+												 <input type="text" class="form-control" placeholder="Fecha de Ingreso" aria-label="Input group example" aria-describedby="basic-addon1">
+												 </div>												
+											</div>
 										</div>
 										<div class="row">
-											<div class="col-sm-4">
-												<h5><label class="col-form-label">Correo</label></h5>
-												<div class="position-relative mb-4 ">
+											<div class="col-sm-6">
+												<h5><label class="col-form-label">Email:</label></h5>
+												<div class="position-relative">
 												<input type="text" id="email" th:field="*{email}" class="form-control"
 														th:errorclass="'form-control alert-danger'"> <small
 														class="form-text text-danger"
 														th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>		
 												</div>
 											</div>
-											<div class="col-sm-4">
-												<h5><label class="col-form-label">contraseña</label></h5>
-												<div class="position-relative mb-4 ">
-												<input type="text" id="email" th:field="*{contraseña}" class="form-control"
+											<div class="col-sm-6">
+												<h5><label class="col-form-label">Contraseña:</label></h5>
+												<div class="position-relative">
+												<input type="text" id="password" th:field="*{password}" class="form-control"
 														th:errorclass="'form-control alert-danger'"> <small
 														class="form-text text-danger"
-														th:if="${#fields.hasErrors('contraseña')}" th:errors="*{contraseña}"></small>		
+														th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>		
 												</div>
 											</div>
 										</div>
@@ -143,6 +198,5 @@
 	</main>
 	
 	<footer th:replace="layout/layout :: footer"></footer>
-	
 </body>
 </html>
