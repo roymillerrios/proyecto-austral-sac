@@ -32,31 +32,11 @@
 										<div class="row">
 											<div class="col-sm-6">
 												<h5><label class="col-form-label">Rol:</label></h5>
-												<div class="position-relative mb-4 ">
-													<select id="elegir_roles" class="form-control" name="elegir_roles"></select>
-													
-														<script type="text/javascript">
-														
-														$(document).ready(function() {
-															$("#elegir_roles").autocomplete({
-																source : function(request, response) {
-															 		$.ajax({
-															 				url : "/trabajador/cargar-roles/",
-																			dataType : "json",
-																			data: data,
-																			succes: function(data){
-																				response($.map(data, function(item) {
-																					return {
-																						value : item.id,
-																						label : item.nombre,
-																					};
-																				}));
-																			},
-															 		});
-															});
-														});
-														</script>		
-												</div>
+												<div class="position-relative mb-4">
+		    										<select th:field="*{roles}" id="roles" class="form-control">
+		    											<option th:each="inventario:${roles}" th:value="${roles.id}" th:text="${roles.nombre}"></option>
+		    										</select>
+		    									</div>
 											</div>
 											<div class="col-sm-6">
 												<h5><label class="col-form-label">Id:</label></h5>

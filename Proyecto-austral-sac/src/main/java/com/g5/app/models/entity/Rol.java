@@ -1,28 +1,41 @@
 package com.g5.app.models.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="rol")
+@Table(name="roles")
 public class Rol implements Serializable{
-
-
-	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty
 	private String nombre;
 	
 	private String descripcion;
+
+	@ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JsonIgnore
+    private List<Trabajador> trabajadores;
+	
+	
+	public Rol() {
+	}
 
 	public Long getId() {
 		return id;
@@ -48,6 +61,14 @@ public class Rol implements Serializable{
 		this.descripcion = descripcion;
 	}
 	
-	
+	public List<Trabajador> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
+
+	private static final long serialVersionUID = 1L;
 	
 }

@@ -1,8 +1,10 @@
 package com.g5.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -29,7 +31,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Trabajador implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotEmpty
@@ -56,21 +57,26 @@ public class Trabajador implements Serializable {
 	private String email;
 	
 	@NotEmpty
-	private String contraseña;
+	private String password;
 	
 	private String celular;
 	
 	private String foto;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+	
 	@JoinTable(name="rol_trabajador",
-			joinColumns = @JoinColumn(name="trabajador_id"),
-			inverseJoinColumns = @JoinColumn(name="rol_id")
+			joinColumns = { @JoinColumn(name="trabajador_id")},
+			inverseJoinColumns = { @JoinColumn(name="rol_id")}
 			)
-	private Set<Rol> roles = new HashSet<>();
+	private List<Rol> roles;
 	
 	public Trabajador() {
-		
+		this.roles = new ArrayList<Rol>() ;
 	}
 
 	public Long getId() {
@@ -97,19 +103,19 @@ public class Trabajador implements Serializable {
 		this.email = email;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public Set<Rol> getRoles() {
+	public List<Rol> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Rol> roles) {
+	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
 

@@ -2,6 +2,7 @@ package com.g5.app.models.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -21,14 +22,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.g5.app.models.service.IUploadFileService;
+import com.g5.app.models.entity.Rol;
 import com.g5.app.models.entity.Trabajador;
 import com.g5.app.util.paginator.PageRender;
+import com.g5.app.models.dao.IRolDao;
+import com.g5.app.models.service.IRolService;
 import com.g5.app.models.service.ITrabajadorService;
 
 @Controller
@@ -41,7 +46,12 @@ public class TrabajadorController {
 	
 	@Autowired
 	private IUploadFileService uploadFileService;
-
+	
+	@Autowired
+	private IRolDao rolDao;
+	
+	@Autowired
+	private IRolService rolService;
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 
@@ -76,13 +86,13 @@ public class TrabajadorController {
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
-		Pageable pageRequest = PageRequest.of(page, 4);
+		Pageable pageRequest = PageRequest.of(page, 10);
 
 		Page<Trabajador> trabajadores = trabajadorService.findAll(pageRequest);
 
-		PageRender<Trabajador> pageRender = new PageRender<Trabajador>("/listar", trabajadores);
+		PageRender<Trabajador> pageRender = new PageRender<Trabajador>("/trabajador/listar", trabajadores);
 		model.addAttribute("titulo", "Listado de trabajadores");
-		model.addAttribute("trabajadores", trabajadores);
+		model.addAttribute("trabajador", trabajadores);
 		model.addAttribute("page", pageRender);
 		return "trabajador/listar";
 	}
@@ -91,8 +101,11 @@ public class TrabajadorController {
 	public String crear(Map<String, Object> model) {
 
 		Trabajador trabajador = new Trabajador();
+		List<Rol> listaRoles = rolDao.findAll();
+		
 		model.put("trabajador", trabajador);
 		model.put("titulo", "Formulario de Trabajador");
+		model.put("rol", listaRoles);
 		return "trabajador/form";
 	}
 
@@ -100,8 +113,9 @@ public class TrabajadorController {
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Trabajador trabajador = null;
+		List<Rol> listaRoles = rolDao.findAll();
 
-		if (id > 0) {
+		if (id != null) {
 			trabajador = trabajadorService.findOne(id);
 			if (trabajador == null) {
 				flash.addFlashAttribute("error", "El ID del trabajador no existe en la BBDD!");
@@ -113,7 +127,13 @@ public class TrabajadorController {
 		}
 		model.put("tabajador", trabajador);
 		model.put("titulo", "Editar Trabajador");
+		model.put("rol", listaRoles);
 		return "trabajador/form";
+	}
+
+	@GetMapping(value="/cargar-roles", produces = {"application/json"})
+	public @ResponseBody List<Rol> cargarRoles(){
+		return rolService.findAll();
 	}
 
 	@RequestMapping(value = "/form", method = RequestMethod.POST)

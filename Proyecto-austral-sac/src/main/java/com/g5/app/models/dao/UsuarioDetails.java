@@ -23,11 +23,9 @@ public class UsuarioDetails implements UserDetails {
 		this.trabajador = trabajador;
 	}
 
-
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<Rol> roles = trabajador.getRoles();
+		List<Rol> roles = trabajador.getRoles();
 		
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 		
@@ -40,7 +38,7 @@ public class UsuarioDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return trabajador.getContraseña();
+		return trabajador.getPassword();
 	}
 
 	@Override
