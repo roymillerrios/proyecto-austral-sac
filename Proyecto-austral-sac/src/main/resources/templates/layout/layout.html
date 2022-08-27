@@ -326,7 +326,28 @@ xmlns:th="http://www.thymeleaf.org">
             </a>
           </li>
         </ul>
-
+		</li>
+		
+		<li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#contrato-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>Contrato</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+       	<ul id="contrato-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/}">
+              <i class="bi bi-circle"></i><span>Listar</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="contrato-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a th:href="@{/obra/listar}">
+              <i class="bi bi-circle"></i><span>Obras</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+		
       <li class="nav-heading">Ayuda</li>
       
 		<li class="nav-item">
