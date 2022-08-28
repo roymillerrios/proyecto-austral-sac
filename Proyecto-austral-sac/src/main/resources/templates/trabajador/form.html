@@ -201,6 +201,34 @@
 											<div class="dropdown-divider"></div>
 										</div>
 										<br>
+										<div class="form-group row">
+											<label for="buscar_material" class="col-sm-2 col-form-label"
+												th:text="'Buscar material'"></label>
+											<div class="col-sm-6">
+												<input type="text" name="buscar_material" id="buscar_material"
+													class="form-control" />
+											</div>
+										</div>
+					
+										<table th:replace="trabajador/plantilla-materiales :: itemsTrabajador"></table>
+					
+										<table id="cargarItemMateriales"
+											class="table table-sm table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Nombre</th>
+													<th>Cantidad</th>
+													<th>Eliminar</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+										<br>
+										<div class="row">
+											<div class="dropdown-divider"></div>
+										</div>
+										<br>
 										<div class="row">
 											<div  class="col-lg-5"></div>
 											<div class="col-lg-2">

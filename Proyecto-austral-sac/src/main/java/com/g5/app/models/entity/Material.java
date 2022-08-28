@@ -19,6 +19,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="materiales")
 public class Material implements Serializable{
@@ -53,6 +55,11 @@ public class Material implements Serializable{
 		joinColumns= {@JoinColumn(name="material_id")},
 		inverseJoinColumns = {@JoinColumn(name="inventario_id")})
 	private List<Inventario> inventarios;
+	
+	@ManyToMany(mappedBy="materiales",fetch = FetchType.LAZY, 
+			cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JsonIgnore
+	private List<Trabajador> trabajadores;
 	
 	public Material() {
 		this.inventarios = new ArrayList<Inventario>() ;
@@ -112,11 +119,9 @@ public class Material implements Serializable{
 	}
 
 
-
 	public void setUnidadMedida(UnidadMedida unidadMedida) {
 		this.unidadMedida = unidadMedida;
 	}
-
 
 
 	public Tipo getTipo() {
@@ -124,11 +129,9 @@ public class Material implements Serializable{
 	}
 
 
-
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
-
 
 
 	public List<Inventario> getInventarios() {
@@ -136,11 +139,19 @@ public class Material implements Serializable{
 	}
 
 
-
 	public void setInventarios(List<Inventario> inventarios) {
 		this.inventarios = inventarios;
 	}
 
+
+	public List<Trabajador> getTrabajadores() {
+		return trabajadores;
+	}
+
+
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
 
 
 	private static final long serialVersionUID = 1L;

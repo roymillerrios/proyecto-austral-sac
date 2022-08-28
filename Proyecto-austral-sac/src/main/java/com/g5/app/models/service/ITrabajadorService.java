@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
+import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Trabajador;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -20,6 +20,7 @@ public interface ITrabajadorService extends UserDetailsService {
 
 	public Trabajador findByEmail(String email);
 
-
 	public void delete(Long id);
+	
+	public List<Material> findByMaterial(String term);
 }

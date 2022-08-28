@@ -64,8 +64,6 @@ public class Trabajador implements Serializable {
 	@NotNull
 	private String password;
 	
-	
-	
 	@Pattern(regexp="[9]{1}[0-9]{8}", message="Número de celular inválido")
 	private String celular;
 	
@@ -78,6 +76,13 @@ public class Trabajador implements Serializable {
 	private String certificadoDomiciliario;
 
 	private String direccion;
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinTable(name="trabajador_material",
+		joinColumns= {@JoinColumn(name="trabajador_id")},
+		inverseJoinColumns = {@JoinColumn(name="material_id")})
+	private List<Material> materiales;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = {
@@ -217,6 +222,9 @@ public class Trabajador implements Serializable {
 		this.celular = celular;
 	}
 
+	public void addMaterial(Material material) {
+		this.materiales.add(material);
+	}
 
 	public String getFoto() {
 		return foto;

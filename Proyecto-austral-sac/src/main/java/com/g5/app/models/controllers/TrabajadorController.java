@@ -31,10 +31,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.g5.app.models.service.IUploadFileService;
+import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Rol;
 import com.g5.app.models.entity.Trabajador;
 import com.g5.app.util.paginator.PageRender;
-import com.g5.app.models.dao.IRolDao;
+import com.g5.app.models.service.IMaterialService;
 import com.g5.app.models.service.IRolService;
 import com.g5.app.models.service.ITrabajadorService;
 
@@ -54,6 +55,10 @@ public class TrabajadorController {
 
 	@Autowired
 	private IRolService rolService;
+	
+	@Autowired
+	private IMaterialService materialService;
+	
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
 
@@ -86,6 +91,11 @@ public class TrabajadorController {
 		return "trabajador/ver";
 	}
 
+	@GetMapping(value="/cargar-materiales/{term}", produces = {"application/json"})
+	public @ResponseBody List<Material> cargarCategorias(@PathVariable String term){
+		return materialService.findByNombre(term);
+	}
+	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
 
@@ -111,7 +121,7 @@ public class TrabajadorController {
 		return "trabajador/form";
 	}
 
-	@RequestMapping(value = "/form/{id}")
+	@RequestMapping(value = "/form/{id}",method = RequestMethod.GET)
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Trabajador trabajador = null;
@@ -140,6 +150,7 @@ public class TrabajadorController {
 						  @RequestParam("file2") MultipartFile antecedentesPoliciales,
 						  @RequestParam("file3") MultipartFile certificadoDomiciliario,
 						  @RequestParam(name = "rol_id", required = false) Long rolId,
+						  @RequestParam(name = "item_id[]", required = false) Long[] itemId,
 						  RedirectAttributes flash, SessionStatus status) {
 
 		if (result.hasErrors()) {
@@ -163,6 +174,20 @@ public class TrabajadorController {
 			}else{
 				return "trabajador/form";
 			}
+		}
+		
+		if (itemId == null || itemId.length == 0) {
+			model.addAttribute("error", "Error: La lista NO puede no tener líneas!");
+			
+			model.addAttribute("trabajador", trabajador);
+			model.addAttribute("titulo", "Formulario de Trabajador");
+			model.addAttribute("roles", rolService.findAll());
+			return "trabajador/form";
+		}
+		for (int i = 0; i < itemId.length; i++) {
+			Material material = materialService.findOne(itemId[i]);
+
+			trabajador.addMaterial(material);
 		}
 
 		if (!foto.isEmpty()) {
@@ -257,6 +282,15 @@ public class TrabajadorController {
 
 			if (uploadFileService.delete(trabajador.getFoto())) {
 				flash.addFlashAttribute("info", "Foto " + trabajador.getFoto() + " eliminada con exito!");
+			}
+			if (uploadFileService.delete(trabajador.getFoto())) {
+				flash.addFlashAttribute("info", "Antecedentes Penales " + trabajador.getAntecedentesPenales() + " eliminada con exito!");
+			}
+			if (uploadFileService.delete(trabajador.getFoto())) {
+				flash.addFlashAttribute("info", "Antecedentes Policiales " + trabajador.getAntecedentesPoliciales() + " eliminada con exito!");
+			}
+			if (uploadFileService.delete(trabajador.getFoto())) {
+				flash.addFlashAttribute("info", "Certificado Domiciliario " + trabajador.getCertificadoDomiciliario() + " eliminada con exito!");
 			}
 
 		}

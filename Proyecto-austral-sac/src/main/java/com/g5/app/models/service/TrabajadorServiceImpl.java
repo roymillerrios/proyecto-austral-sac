@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.g5.app.models.entity.Trabajador;
 import com.g5.app.models.dao.ITrabajadorDao;
+import com.g5.app.models.dao.IMaterialDao;
 
 @Service
 public class TrabajadorServiceImpl implements ITrabajadorService {
@@ -25,6 +27,8 @@ public class TrabajadorServiceImpl implements ITrabajadorService {
 	@Autowired
 	private ITrabajadorDao trabajadorDao;
 	
+	@Autowired
+	private IMaterialDao materialDao;
 	@Override
 	@Transactional(readOnly = true)
 	public List<Trabajador> findAll() {
@@ -77,5 +81,9 @@ public class TrabajadorServiceImpl implements ITrabajadorService {
 
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(List<Rol> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getDescripcion())).collect(Collectors.toList());
+	}
+	
+	public List<Material> findByMaterial(String term){
+		return materialDao.findByNombreLikeIgnoreCase(term);
 	}
 }

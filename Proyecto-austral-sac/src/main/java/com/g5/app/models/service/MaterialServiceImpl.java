@@ -47,4 +47,10 @@ public class MaterialServiceImpl implements IMaterialService {
 	public Page<Material> findAll(Pageable pageable) {
 		return materialDao.findAll(pageable);
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Material> findByNombre(String term){
+		return materialDao.findByNombreLikeIgnoreCase("%" + term + "%");
+	}
 }
