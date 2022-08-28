@@ -28,7 +28,7 @@ public class Trabajador implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Pattern(regexp="[0-9]{8}", message="Se permiten solo 8 caracteres numericos")
+	@Pattern(regexp="[1-9]{1}[0-9]{7}", message="Número de DNI inválido")
 	private String DNI;
 	
 	@PastOrPresent
@@ -38,12 +38,17 @@ public class Trabajador implements Serializable {
 	
 	@NotNull
 	@Size(min= 2,message="Campo requerido")
+	@Pattern(regexp="[A-záéíóúÁÉÍÓÚÑñ ]+", message="No debe contener caracteres extraños")
 	private String nombreCompleto;
 	
 	@NotNull
+	@Size(min= 2,message="Campo requerido")
+	@Pattern(regexp="[A-záéíóúÁÉÍÓÚÑñ ]+", message="No debe contener caracteres extraños")
 	private String apellidoMaterno;
 	
 	@NotNull
+	@Size(min= 2,message="Campo requerido")
+	@Pattern(regexp="[A-záéíóúÁÉÍÓÚÑñ ]+", message="No debe contener caracteres extraños")
 	private String apellidoPaterno;
 	
 	@Min(value=18,message="No se permiten edades menores a 18")
@@ -61,7 +66,7 @@ public class Trabajador implements Serializable {
 	
 	
 	
-	@Pattern(regexp="[0-9]{9}", message="Se permiten solo 9 caracteres numericos")
+	@Pattern(regexp="[9]{1}[0-9]{8}", message="Número de celular inválido")
 	private String celular;
 	
 	private String foto;
