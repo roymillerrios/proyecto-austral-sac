@@ -127,7 +127,7 @@ public class MaterialController {
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		
-		Material material = materialService.findMaterialById(id);
+		Material material = materialService.findOne(id);
 		
 		if (material != null) {
 			materialService.delete(id);
