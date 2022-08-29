@@ -17,6 +17,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.g5.app.models.entity.Inventario;
+import com.g5.app.models.entity.Trabajador;
 import com.g5.app.models.service.IInventarioService;
 
 @Controller
@@ -56,6 +57,20 @@ public class InventarioController {
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/inventario/listar";
+	}
+	
+	@GetMapping(value = "/ver/{id}")
+	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+
+		Inventario inventario = inventarioService.findOne(id);
+		if (inventario == null) {
+			flash.addFlashAttribute("error", "El inventario no existe en la base de datos");
+			return "redirect:/trabajador/listar";
+		}
+
+		model.put("inventario", inventario);
+		model.put("titulo", "Detalle Inventario: " + inventario.getNombre());
+		return "inventario/ver";
 	}
 	
 	@RequestMapping(value="/listar", method = RequestMethod.GET)

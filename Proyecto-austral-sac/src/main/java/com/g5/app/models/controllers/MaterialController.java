@@ -27,6 +27,7 @@ import com.g5.app.models.entity.Inventario;
 import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Tipo;
 import com.g5.app.models.entity.UnidadMedida;
+import com.g5.app.models.service.IInventarioService;
 import com.g5.app.models.service.IMaterialService;
 import com.g5.app.util.paginator.PageRender;
 
@@ -37,6 +38,9 @@ public class MaterialController {
 
 	@Autowired 
 	private IMaterialService materialService;
+	
+	@Autowired
+	private IInventarioService inventarioService;
 	
 	@Autowired
 	private ITipoDao tipoDao;
@@ -58,14 +62,19 @@ public class MaterialController {
 		model.addAttribute("page", pageRender);
 		return "material/listar";
 	}
-	@RequestMapping(value= "/form", method = RequestMethod.GET)
-	public String crear(Map<String, Object> model) {
+	@RequestMapping(value= "/form/{inventarioId}", method = RequestMethod.GET)
+	public String crear(@PathVariable(value = "inventarioId") Long inventarioId, Map<String, Object> model,
+			RedirectAttributes flash) {
 	
-		Material material = new Material();
+		Inventario inventario = inventarioService.findOne(inventarioId);
+		
 		List<Tipo> listaTipo = tipoDao.findAll();
 		List<UnidadMedida> listaUnidadMedida = unidadmedidaDao.findAll();
 		List<Inventario> listaInventario = inventarioDao.findAll();
-	
+		
+		Material material = new Material();
+		material.setInventario(inventario);
+		
 		model.put("material", material);
 		model.put("titulo", "Formulario de Material");
 		model.put("tipo",listaTipo);
@@ -112,16 +121,21 @@ public class MaterialController {
 		materialService.save(material);
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
-		return "redirect:/material/listar";
+		return "redirect:/inventario/ver/" + material.getInventario().getId();
 	}
 	
 	@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
-
-		if (id != null) {
+		
+		Material material = materialService.findMaterialById(id);
+		
+		if (material != null) {
 			materialService.delete(id);
 			flash.addFlashAttribute("success", "Material eliminada con éxito!");
+			return "redirect:/ver/" + material.getInventario().getId();
 		}
-		return "material/listar";
+		flash.addFlashAttribute("error", "El material no existe en la base de datos");
+		
+		return "redirect:/material/listar";
 	}
 }

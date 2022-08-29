@@ -20,4 +20,6 @@ public interface IMaterialService {
 	public void delete(Long id);
 	
 	public List<Material> findByNombre(String term);
+	
+	public Material findMaterialById(Long id);
 }

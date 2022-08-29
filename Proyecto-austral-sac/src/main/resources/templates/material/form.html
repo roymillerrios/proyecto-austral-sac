@@ -88,16 +88,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	    									<div class="col-6">
 	    										<h5 class="text">Inventario</h5>
 		    									<div class="position-relative mb-4">
-		    										<select th:field="*{inventarios}" id="inventario" class="form-control">
-		    											<option th:each="inventario:${inventario}" th:value="${inventario.id}" th:text="${inventario.nombre}"></option>
-		    										</select>
+		    										<input name="inventario"
+		    											th:value="${material.inventario.nombre}"
+		    											class="form-control" disabled='disabled'/>
 		    									</div>
 	    									</div>
 	    								</div>
 	    								<div class="row">
 											<div  class="col-lg-4"></div>
 											<div  class="col-lg-2">
-												<a class="btn btn-danger" th:href="@{/material/listar}" th:text="'Cancelar'"></a>
+												<a class="btn btn-danger" th:href="@{/inventario/listar}" th:text="'Cancelar'"></a>
 											</div>
 											<div class="col-lg-2">
 												<input type="submit" value="Guardar" class="btn btn-success mb-2">

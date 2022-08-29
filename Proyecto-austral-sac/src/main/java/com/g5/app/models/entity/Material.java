@@ -49,12 +49,8 @@ public class Material implements Serializable{
 	private Tipo tipo;
 	
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-		cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinTable(name="material_inventario",
-		joinColumns= {@JoinColumn(name="material_id")},
-		inverseJoinColumns = {@JoinColumn(name="inventario_id")})
-	private List<Inventario> inventarios;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Inventario inventario;
 	
 	@ManyToMany(mappedBy="materiales",fetch = FetchType.LAZY, 
 			cascade= {CascadeType.PERSIST,CascadeType.MERGE})
@@ -62,7 +58,7 @@ public class Material implements Serializable{
 	private List<Trabajador> trabajadores;
 	
 	public Material() {
-		this.inventarios = new ArrayList<Inventario>() ;
+		
 	}
 	
 	
@@ -133,14 +129,13 @@ public class Material implements Serializable{
 		this.tipo = tipo;
 	}
 
-
-	public List<Inventario> getInventarios() {
-		return inventarios;
+	public Inventario getInventario() {
+		return inventario;
 	}
 
 
-	public void setInventarios(List<Inventario> inventarios) {
-		this.inventarios = inventarios;
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
 	}
 
 
