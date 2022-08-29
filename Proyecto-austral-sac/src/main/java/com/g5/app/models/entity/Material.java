@@ -35,27 +35,16 @@ public class Material implements Serializable{
 	@NotEmpty
 	private String marca;
 	
-	@NotNull
-	private Double cantidad;
-		
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="unidad_medida_id")
+	@JsonIgnore
 	private UnidadMedida unidadMedida;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tipo_id")
-	private Tipo tipo;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Inventario inventario;
-	
-	@ManyToMany(mappedBy="materiales",fetch = FetchType.LAZY, 
-			cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JsonIgnore
-	private List<Trabajador> trabajadores;
+	private Tipo tipo;
 	
 	public Material() {
 		
@@ -96,20 +85,7 @@ public class Material implements Serializable{
 		this.marca = marca;
 	}
 
-
-
-	public Double getCantidad() {
-		return cantidad;
-	}
-
-
-
-	public void setCantidad(Double cantidad) {
-		this.cantidad = cantidad;
-	}
-
-
-
+	
 	public UnidadMedida getUnidadMedida() {
 		return unidadMedida;
 	}
@@ -129,24 +105,15 @@ public class Material implements Serializable{
 		this.tipo = tipo;
 	}
 
-	public Inventario getInventario() {
-		return inventario;
-	}
 
-
-	public void setInventario(Inventario inventario) {
-		this.inventario = inventario;
-	}
-
-
-	public List<Trabajador> getTrabajadores() {
+	/*public List<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
 
 
 	public void setTrabajadores(List<Trabajador> trabajadores) {
 		this.trabajadores = trabajadores;
-	}
+	}*/
 
 
 	private static final long serialVersionUID = 1L;

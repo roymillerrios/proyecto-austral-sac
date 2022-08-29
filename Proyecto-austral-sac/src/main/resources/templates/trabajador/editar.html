@@ -42,7 +42,7 @@
 												<h5><label class="col">Rol:</label></h5>
 												<div class="position-relative mb-4">
 		    										<select id="roles" class="form-control" name="rol_id" >
-														<option  selected disabled>Elija una opcion</option>
+														<option disabled>Elija una opcion</option>
 														<th:block th:each="rol:${roles}" >
 															<option th:selected="${trabajador.getRoles().get(0).getId()== rol.id}"  th:value="${rol.id}" th:text="${rol.descripcion}"></option>
 														</th:block>

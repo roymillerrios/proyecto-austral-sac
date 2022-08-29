@@ -22,5 +22,5 @@ public interface ITrabajadorService extends UserDetailsService {
 
 	public void delete(Long id);
 	
-	public List<Material> findByMaterial(String term);
+
 }

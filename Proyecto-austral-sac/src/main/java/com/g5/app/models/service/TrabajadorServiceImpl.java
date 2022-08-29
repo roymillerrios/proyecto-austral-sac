@@ -27,8 +27,7 @@ public class TrabajadorServiceImpl implements ITrabajadorService {
 	@Autowired
 	private ITrabajadorDao trabajadorDao;
 	
-	@Autowired
-	private IMaterialDao materialDao;
+	
 	@Override
 	@Transactional(readOnly = true)
 	public List<Trabajador> findAll() {
@@ -83,7 +82,5 @@ public class TrabajadorServiceImpl implements ITrabajadorService {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getDescripcion())).collect(Collectors.toList());
 	}
 	
-	public List<Material> findByMaterial(String term){
-		return materialDao.findByNombreLikeIgnoreCase(term);
-	}
+
 }

@@ -33,7 +33,7 @@ public class Obra implements Serializable{
 	private String ubicacion;
 	
 	/*
-	@ManyToMany(fetch = FetchType.LAZY,
+	@OnetoMany(fetch = FetchType.LAZY,
 			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name="obra_trabajador",
 			joinColumns = {@JoinColumn(name="obra_id")},

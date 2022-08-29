@@ -70,16 +70,11 @@ public class MaterialController {
 		
 		List<Tipo> listaTipo = tipoDao.findAll();
 		List<UnidadMedida> listaUnidadMedida = unidadmedidaDao.findAll();
-		List<Inventario> listaInventario = inventarioDao.findAll();
 		
-		Material material = new Material();
-		material.setInventario(inventario);
-		
-		model.put("material", material);
 		model.put("titulo", "Formulario de Material");
 		model.put("tipo",listaTipo);
 		model.put("unidadmedida",listaUnidadMedida);
-		model.put("inventario",listaInventario);
+		model.put("inventario",inventario);
 		return "material/form";
 	
 	}
@@ -110,7 +105,7 @@ public class MaterialController {
 		return "material/form";
 	}
 	
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String guardar(@Valid Material material,BindingResult result, Model model,RedirectAttributes flash, SessionStatus status) {
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de Material");
@@ -122,9 +117,9 @@ public class MaterialController {
 		status.setComplete();
 		flash.addFlashAttribute("success", mensajeFlash);
 		return "redirect:/inventario/ver/" + material.getInventario().getId();
-	}
+	}*/
 	
-	@RequestMapping(value = "/eliminar/{id}")
+	/*@RequestMapping(value = "/eliminar/{id}")
 	public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
 		
 		Material material = materialService.findOne(id);
@@ -137,5 +132,5 @@ public class MaterialController {
 		flash.addFlashAttribute("error", "El material no existe en la base de datos");
 		
 		return "redirect:/material/listar";
-	}
+	}*/
 }

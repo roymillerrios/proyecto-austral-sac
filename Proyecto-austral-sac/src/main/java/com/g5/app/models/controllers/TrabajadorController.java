@@ -31,10 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.g5.app.models.service.IUploadFileService;
+import com.g5.app.models.entity.ItemTrabajador;
 import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Rol;
 import com.g5.app.models.entity.Trabajador;
 import com.g5.app.util.paginator.PageRender;
+import com.g5.app.models.service.IInventarioService;
 import com.g5.app.models.service.IMaterialService;
 import com.g5.app.models.service.IRolService;
 import com.g5.app.models.service.ITrabajadorService;
@@ -58,6 +60,9 @@ public class TrabajadorController {
 	
 	@Autowired
 	private IMaterialService materialService;
+	
+	@Autowired
+	private IInventarioService inventarioService;
 	
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> verFoto(@PathVariable String filename) {
@@ -91,9 +96,10 @@ public class TrabajadorController {
 		return "trabajador/ver";
 	}
 
-	@GetMapping(value="/cargar-materiales/{term}", produces = {"application/json"})
-	public @ResponseBody List<Material> cargarCategorias(@PathVariable String term){
-		return materialService.findByNombre(term);
+	@GetMapping(value="/cargar-materiales/{id}/{term}", produces = {"application/json"})
+	public @ResponseBody List<Material> cargarCategorias(@PathVariable String term,@PathVariable Long id){
+		
+		return materialService.findByNombreAndInventarioId(id, term);
 	}
 	
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -118,9 +124,12 @@ public class TrabajadorController {
 		model.put("trabajador", trabajador);
 		model.put("titulo", "Formulario de Trabajador");
 		model.put("roles", rolService.findAll());
+		model.put("inventario", inventarioService.findAll());
 		return "trabajador/form";
 	}
 
+	
+	
 	@RequestMapping(value = "/form/{id}",method = RequestMethod.GET)
 	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -143,6 +152,53 @@ public class TrabajadorController {
 		return "trabajador/editar";
 	}
 
+	@RequestMapping(value = "/asignar/{id}",method = RequestMethod.GET)
+	public String asignar(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+
+		Trabajador trabajador = null;
+
+		if (id != null) {
+			trabajador = trabajadorService.findOne(id);
+			if (trabajador == null) {
+				flash.addFlashAttribute("error", "El ID del trabajador no existe en la BBDD!");
+				return "redirect:/listar";
+			}
+		} else {
+			flash.addFlashAttribute("error", "El ID del trabajador no puede ser cero!");
+			return "redirect:/listar";
+		}
+		model.put("rol",trabajador.getRoles().get(0).getId());
+		model.put("trabajador", trabajador);
+		model.put("titulo", "Editar Trabajador");
+		model.put("roles", rolService.findAll());
+		return "trabajador/asignar";
+	}
+
+	@RequestMapping(value = "/asignar", method = RequestMethod.POST)
+	public String guardar2(@Valid Trabajador trabajador, BindingResult result, Model model,
+						@RequestParam(name = "item_id[]", required = false) Long[] itemId,
+						@RequestParam(name = "cantidad[]", required = false) int[] cantidad,
+						RedirectAttributes flash, SessionStatus status) {
+
+		if (itemId == null || itemId.length == 0) {
+		flash.addFlashAttribute("error", "Error: La lista NO puede no tener líneas!");
+		
+		model.addAttribute("trabajador", trabajador);
+		model.addAttribute("titulo", "Formulario de Trabajador");
+		return "redirect:/trabajador/asignar/"+trabajador.getId();
+		}
+		
+		for (int i = 0; i < itemId.length; i++) {
+            ItemTrabajador itemtrabajador=new ItemTrabajador();
+            Material material= materialService.findOne(itemId[i]);
+            
+            itemtrabajador.setMaterial(material);
+            itemtrabajador.setCantidad(cantidad[i]);
+            
+        }
+		return "redirect:/trabajador/listar";
+	}
+	
 	@RequestMapping(value = "/form", method = RequestMethod.POST)
 	public String guardar(@Valid Trabajador trabajador, BindingResult result, Model model,
 						  @RequestParam("file") MultipartFile foto,
@@ -157,6 +213,7 @@ public class TrabajadorController {
 			model.addAttribute("titulo", "Formulario de Trabajadores");
 			model.addAttribute("trabajador", trabajador);
 			model.addAttribute("roles", rolService.findAll());
+			model.addAttribute("inventario", inventarioService.findAll());
 			if (trabajador.getId() != null && trabajador.getId() > 0 ) {
 				return "trabajador/editar";
 			}else{
@@ -168,26 +225,13 @@ public class TrabajadorController {
 			model.addAttribute("titulo", "Formulario de Trabajadores");
 			model.addAttribute("trabajador", trabajador);
 			model.addAttribute("roles", rolService.findAll());
+			model.addAttribute("inventario", inventarioService.findAll());
 			model.addAttribute("error", "Error: Debe elegir un rol");
 			if (trabajador.getId() != null && trabajador.getId() > 0 ) {
 				return "trabajador/editar";
 			}else{
 				return "trabajador/form";
 			}
-		}
-		
-		if (itemId == null || itemId.length == 0) {
-			model.addAttribute("error", "Error: La lista NO puede no tener líneas!");
-			
-			model.addAttribute("trabajador", trabajador);
-			model.addAttribute("titulo", "Formulario de Trabajador");
-			model.addAttribute("roles", rolService.findAll());
-			return "trabajador/form";
-		}
-		for (int i = 0; i < itemId.length; i++) {
-			Material material = materialService.findOne(itemId[i]);
-
-			trabajador.addMaterial(material);
 		}
 
 		if (!foto.isEmpty()) {

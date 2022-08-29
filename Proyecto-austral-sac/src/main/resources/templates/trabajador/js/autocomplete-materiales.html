@@ -6,15 +6,17 @@
 		$(document).ready(function() {
 
 			$("#buscar_material").autocomplete({
-
+				
 				source : function(request, response) {
 					$.ajax({
-						url : "/material/cargar-materiales/" + request.term,
+						url : "/trabajador/cargar-materiales/"+ $('#inventarioid').val()+"/" + request.term ,
 						dataType : "json",
 						data : {
-							term : request.term
+							term : request.term,
+							id : $('#inventarioid').val()
 						},
 						success : function(data) {
+							
 							response($.map(data, function(item) {
 								return {
 									value : item.id,

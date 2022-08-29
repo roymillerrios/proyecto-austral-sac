@@ -30,43 +30,35 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
 	    							<div th:replace="layout/mensajes :: mensajes"></div>
-	    							<form th:action="@{/material/form}" th:object="${material}" method="post" enctype="multipart/form-data">
+	    							<form th:action="@{/material/form}"method="post">
 	    								<div class="row">
 	    									
 		    								<div class="col-sm-8">
 		    									<h5><label class="col-form-label">Nombre</label></h5>
 		    									<div class="position-relative mb-4">
-		    										<input type="text" id="nombre" th:field="*{nombre}" class="form-control"
-		    										th:errorclass="'form-control alert-danger'"><small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+		    										<input type="text" id="nombre" name="nombre" class="form-control" required>
 		    									</div>
 		    								</div>
 		    								<div class="col-sm-4">
 		    									<h5><label class="col-form-label">Marca</label></h5>
 		    									<div class="position-relative mb-4">
-		    										<input type="text" id="marca" th:field="*{marca}" class="form-control"
-		    											th:errorclass="'form-control alert-danger'"><small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></small>
+		    										<input type="text" id="marca" th:field="marca" class="form-control">
 		    									</div>
 		    								</div>
 		    								
 	    								</div>
 	    								<div class="row">
 			    							<div class="col-sm-2">
-		    									<h5><label class="col-form-label">Cantidad</label></h5>
+		    									<h5><label class="col-form-label">Stock</label></h5>
 		    									<div class="position-relative mb-4">
-		    										<input type="number" id="cantidad" th:field="*{cantidad}" class="form-control"
-		    											th:errorclass="'form-control alert-danger'"><small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></small>
+		    										<input type="number" id="stock" name="stock" class="form-control"
+		    											th:errorclass="'form-control alert-danger'" required>
 		    									</div>
 		    								</div>
 	    									<div class="col-sm-6">
 		    									<h5><label class="col-form-label">Unidad de Medida</label></h5>
 		    									<div class="position-relative mb-4">
-		    										<select th:field="*{unidadMedida}" id="unidadmedida" class="form-control">
+		    										<select name="unidadMedida_id" id="unidadmedida" class="form-control">
 		    											<option th:each="unidadmedida:${unidadmedida}" th:value="${unidadmedida.id}" th:text="${unidadmedida.descripcion}"></option>
 		    										</select>
 		    									</div>
@@ -74,7 +66,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		    								<div class="col-sm-4">
 		    									<h5><label class="col-form-label">Tipo</label></h5>
 		    									<div class="position-relative mb-4">
-		    										<select th:field="*{tipo}" id="tipo" class="form-control">
+		    										<select name="tipo_id" id="tipo" class="form-control">
 		    											<option th:each="tipo:${tipo}" th:value="${tipo.id}" th:text="${tipo.descripcion}"></option>
 		    										</select>
 		    									</div>
@@ -88,8 +80,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	    									<div class="col-6">
 	    										<h5 class="text">Inventario</h5>
 		    									<div class="position-relative mb-4">
-		    										<input name="inventario"
-		    											th:value="${material.inventario.nombre}"
+		    										<input  type="text" name="inventario"
+		    											th:value="${inventario.nombre}"
 		    											class="form-control" disabled='disabled'/>
 		    									</div>
 	    									</div>

@@ -37,6 +37,7 @@
 												<th><center>Nombre</center></th>
 												<th><center>Edad</center></th>
 												<th><center>E-Mail</center></th>
+												<th><center>Asignar Material</center></th>
 												<th><center>Ver</center></th>
 												<th><center>Editar</center></th>
 												<th><center>Eliminar</center></th>
@@ -50,6 +51,8 @@
 												<th th:text="${trabajador.apellidoPaterno}+' '+${trabajador.apellidoMaterno}+' '+${trabajador.nombreCompleto}"></th>
 												<th th:text="${trabajador.edad}"></th>
 												<th th:text="${trabajador.email}"></th>
+												<th><center><a class="btn btn-success btn-sm bi bi-eye-fill" 
+													th:href="@{/trabajador/asignar/} + ${trabajador.id}"></a></center></th>
 												<th><center><a class="btn btn-success btn-sm bi bi-eye-fill" 
 													th:href="@{/trabajador/ver/} + ${trabajador.id}"></a></center></th>
 												<th><center><a class="btn btn-success btn-sm bi bi-pencil-square" 

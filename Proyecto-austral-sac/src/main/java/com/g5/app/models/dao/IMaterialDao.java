@@ -15,4 +15,7 @@ public interface IMaterialDao extends JpaRepository<Material, Long>{
 	public List<Material> findByNombre(String term);
 
 	public List<Material> findByNombreLikeIgnoreCase(String term);
+	
+
+	
 }

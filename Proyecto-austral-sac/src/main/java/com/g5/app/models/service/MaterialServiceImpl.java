@@ -53,4 +53,16 @@ public class MaterialServiceImpl implements IMaterialService {
 	public List<Material> findByNombre(String term){
 		return materialDao.findByNombreLikeIgnoreCase("%" + term + "%");
 	}
+	
+	/*@Override
+	@Transactional(readOnly=true)
+	public List<Material> findByNombreAndInventarioId(Long id,String term){
+		return materialDao.findByInventario_IdAndNombreContainingIgnoreCase(id, term);
+	}
+	
+	/**@Override
+	@Transactional(readOnly=true)
+	public List<Material> findByInventario_IdAndMaterial_Id(Long id,Long id2){
+		return materialDao.findByInventario_IdAndMaterial_Id(id, id2);
+	}*/
 }

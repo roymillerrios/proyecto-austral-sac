@@ -77,12 +77,10 @@ public class Trabajador implements Serializable {
 
 	private String direccion;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-	@JoinTable(name="trabajador_material",
-		joinColumns= {@JoinColumn(name="trabajador_id")},
-		inverseJoinColumns = {@JoinColumn(name="material_id")})
-	private List<Material> materiales;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "trabajador_id")
+	private List<ItemTrabajador> items;
+
 	
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = {
@@ -93,9 +91,32 @@ public class Trabajador implements Serializable {
 			joinColumns = { @JoinColumn(name = "trabajador_id") },
 			inverseJoinColumns = { @JoinColumn(name = "rol_id") })
 	private List<Rol> roles;
+
+	
+	private Long estado;
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Inventario inventario;
 	
 	public Trabajador() {
 		this.roles = new ArrayList<Rol>() ;
+	}
+	
+	public Long getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Long estado) {
+		this.estado = estado;
+	}
+
+	public Inventario getInventario() {
+		return inventario;
+	}
+
+	public void setInventario(Inventario inventario) {
+		this.inventario = inventario;
 	}
 
 	public Long getId() {
@@ -134,6 +155,9 @@ public class Trabajador implements Serializable {
 		return roles;
 	}
 
+	public void addItem(ItemTrabajador items) {
+		this.items.add(items);
+	}
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
 	}
@@ -222,10 +246,6 @@ public class Trabajador implements Serializable {
 		this.celular = celular;
 	}
 
-	public void addMaterial(Material material) {
-		this.materiales.add(material);
-	}
-
 	public String getFoto() {
 		return foto;
 	}
@@ -241,6 +261,14 @@ public class Trabajador implements Serializable {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public List<ItemTrabajador> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemTrabajador> items) {
+		this.items = items;
 	}
 
 

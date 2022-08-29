@@ -33,10 +33,15 @@ public class Inventario implements Serializable{
 	
 	@OneToMany(mappedBy = "inventario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<Material> materiales;
+	private List<ItemInventario> items;
+	
+	@OneToMany(mappedBy = "inventario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Trabajador> trabajadores;
 
 	public Inventario() {
-		materiales = new ArrayList<Material>();
+		this.items = new ArrayList<ItemInventario>();
+		this.trabajadores = new ArrayList<Trabajador>();
 	}
 	
 	public Long getId() {
@@ -63,13 +68,26 @@ public class Inventario implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 
-	public List<Material> getMateriales() {
-		return materiales;
+	public void addItemInventario(ItemInventario items) {
+		this.items.add(items);
+	}
+	public List<ItemInventario> getItems() {
+		return items;
 	}
 
-	public void setMateriales(List<Material> materiales) {
-		this.materiales = materiales;
+	public void setItems(List<ItemInventario> items) {
+		this.items = items;
 	}
-	
+
+	public List<Trabajador> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<Trabajador> trabajadores) {
+		this.trabajadores = trabajadores;
+	}
+
+
+
 	private static final long serialVersionUID = 1L;
 }
