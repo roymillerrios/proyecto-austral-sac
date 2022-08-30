@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="layout/layout :: head">
+	<meta charset="UTF-8">
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"></header>
+	
+	<aside th:replace="layout/layout :: aside"></aside>
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+	      <h1>Obra</h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a th:href="@{/obra/listar}">Listar</a></li>
+	          <li class="breadcrumb-item active">Crear</li>
+	        </ol>
+	      </nav>
+	    </div>
+	    <section class="section dashboard">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<div class="row">
+	    				<div class="col-12">
+	    					<div class="card">
+	    						<div class="card-body" layout:fragment="contenido">
+	    							<form th:action="@{/obra/form}" th:object="${obra}" method="post" enctype="multipart/form-data">
+	    								<br>
+	    								<div class="row">
+											<div class="col-sm-4">
+												<h5><label class="col">Descripción:</label></h5>
+												<div class="position-relative mb-4 ">
+												<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>		
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<h5><label class="col">Zona:</label></h5>
+												<div class="position-relative mb-4 ">
+												<input type="text" id="zona" th:field="*{zona}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('zona')}" th:errors="*{zona}"></small>		
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<h5><label class="col">Ubicación:</label></h5>
+												<div class="position-relative mb-4 ">
+												<input type="text" id="ubicacion" th:field="*{ubicacion}" class="form-control"
+														th:errorclass="'form-control alert-danger'"> <small
+														class="form-text text-danger"
+														th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></small>		
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-3">
+												<h5> <label class="col">Fecha de Inicio:</label></h5>
+												<div class="position-relative">
+											    	 <input type="date" class="form-control" th:field="*{fechaInicio}" placeholder="Fecha de Inicio"
+															th:errorclass="'form-control alert-danger'">
+													<small class="form-text text-danger" th:if="${#fields.hasErrors('fechaInicio')}"
+														   th:errors="*{fechaInicio}"></small>
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<h5><label class="col">Estado:</label></h5>
+												<div class="position-relative mb-4">
+		    										<select th:field="*{estado}" id="estado" class="form-control">
+														<option th:value="Iniciar" th:text="Iniciar"></option>
+														<option th:value="Proceso" th:text="Proceso"></option>
+														<option th:value="Culminado" th:text="Culminado"></option>
+													</select>
+		    									</div>
+											</div>
+										</div>
+										<div class="row">
+											<div  class="col-lg-5"></div>
+											<div class="col-lg-2">
+												<input type="submit" value="Enviar" class="btn btn-primary mb-2">
+											</div>
+										</div>
+	    							</form>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </section>
+	</main>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+</body>
+</html>

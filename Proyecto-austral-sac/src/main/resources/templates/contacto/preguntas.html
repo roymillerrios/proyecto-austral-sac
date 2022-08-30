@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+	<meta charset="UTF-8">
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"></header>
+	
+	<aside th:replace="layout/layout :: aside"></aside>
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+	      <h1>Preguntas Frecuentes</h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+	          <li class="breadcrumb-item active">Preguntas Frecuentes</li>
+	        </ol>
+	      </nav>
+	    </div>
+	    <section class="section dashboard">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<div class="row">
+	    				<div class="col-12">
+	    					<div class="card">
+	    						<div class="card-body" layout:fragment="contenido">
+	    							<br>
+	    							<div class="row">
+	    								<h2 style="color:#0b1778"><center><b>Preguntas Frecuentes</b></center></h2>
+	    								<h6 style="color:#1f30bd"><center>Encuentra respuestas a varias preguntas sobre nosostros</center></h6>
+	    							</div>
+	    							<div class="accordion accordion-flush" id="accordionFlushExample">
+	    								<div class="accordion-item">
+	    									<h2 class="accordion-header" id="flush-headingOne">
+	    										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+	    											<b>¿Dónde se encuentra las sedes de Austral SAC?</b>
+	    										</button>
+	    									</h2>
+	    									<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	    										<div class="accordion-body">
+	    											La sede principal se encuentra en Vijus-Pataz y también contamos con una sede en Trujillo.
+	    										</div>
+	    									</div>
+	    								</div>
+	    								<div class="accordion-item">
+	    									<h2 class="accordion-header" id="flush-headingOne">
+	    										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+	    											<b>¿A qué se dedica Austral SAC?</b>
+	    										</button>
+	    									</h2>
+	    									<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+	    										<div class="accordion-body">
+	    											Austral SAC es una contrata que brinda servicios de metalmecánica y obras civiles a la minera “Poderosa S.A.”, ubicada en la misma zona.
+	    										</div>
+	    									</div>
+	    								</div>
+	    							</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </section>
+	</main>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+</body>
+</html>

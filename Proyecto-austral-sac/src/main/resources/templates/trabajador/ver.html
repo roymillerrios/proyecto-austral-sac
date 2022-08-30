@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="layout/layout :: head">
+	<meta charset="UTF-8">
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"></header>
+	
+	<aside th:replace="layout/layout :: aside"></aside>
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+	      <h1>Trabajador</h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a th:href="@{/trabajador/listar}">Listar</a></li>
+	          <li class="breadcrumb-item active">Crear</li>
+	        </ol>
+	      </nav>
+	    </div>
+	    <hr style="color: blue;"  size="10"/>
+	    <section class="section dashboard">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<div class="row">
+	    				<div class="col-12">
+	    					<div class="card">
+	    						<div class="card-body" layout:fragment="contenido">
+									<div th:replace="layout/mensajes :: mensajes"></div>
+									<br>
+									<div class="row">
+										<div class="col-sm-3">
+										<br>
+										<br>
+											<img th:src="@{'/trabajador/uploads/' + ${trabajador.foto}}" th:alt="${trabajador.foto}" width="250" height="250">
+										</div>
+										<div class="col-sm-9">
+											<h5><strong>Informacion del Trabajador :</strong></h5>
+											<ul class="list-group">
+												<li class="list-group-item active" th:text="${'Trabajador : '+trabajador.nombreCompleto +' '+ trabajador.apellidoPaterno + ' ' +trabajador.apellidoMaterno}"></li>
+												<li class="list-group-item" th:text="${'Correo : '+trabajador.email}"></li>
+												<li class="list-group-item" th:text="${'DNI : '+trabajador.DNI}"></li>
+												<li class="list-group-item" th:text="${'Sexo : '+trabajador.sexo}"></li>
+												<li class="list-group-item" th:text="${'Direccion : '+trabajador.direccion}"></li>
+												<li class="list-group-item" th:text="${'Edad : '+trabajador.edad}"></li>
+												<li class="list-group-item" th:text="${'Fecha Ingreso : '+trabajador.fechaIngreso}"></li>
+											</ul>
+										</div>
+									</div>
+									<br>
+									<br>
+									<div class="row">
+										<div class="col-sm-4">
+										<h5><label class="col">Antecedentes Penales</label></h5>
+											<div class="position-relative mb-4">
+												<a class="btn btn-primary" th:href="@{'/trabajador/uploads/' + ${trabajador.antecedentesPenales}}" role="button">Descargar </a>
+											</div>
+										</div>
+										<div class="col-sm-4">
+										<h5><label class="col">Antecedentes Policiales</label></h5>
+											<div class="position-relative mb-4">
+												<a class="btn btn-primary" th:href="@{'/trabajador/uploads/' + ${trabajador.antecedentesPoliciales}}" role="button">Descargar </a>
+											</div>
+										</div>
+										<div class="col-sm-4">
+										<h5><label class="col">Certificado Domiciliario</label></h5>
+											<div class="position-relative mb-4">
+												<a class="btn btn-primary" th:href="@{'/trabajador/uploads/' + ${trabajador.certificadoDomiciliario}}" role="button">Descargar </a>
+											</div>
+										</div>
+									</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </section>
+	</main>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

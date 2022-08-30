@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+	<meta charset="UTF-8">
+</head>
+<body>
+	
+	<header th:replace="layout/layout :: header"></header>
+	
+	<aside th:replace="layout/layout :: aside"></aside>
+
+	<main id="main" class="main">
+		<div class="pagetitle">
+	      <h1 th:text="'Material en ' + ${inventario.nombre}"></h1>
+	      <nav>
+	        <ol class="breadcrumb">
+	          <li class="breadcrumb-item"><a th:href="@{/inventario/listar}">Listar</a></li>
+	          <li class="breadcrumb-item active">Materiales</li>
+	        </ol>
+	      </nav>
+	    </div>
+	    <section class="section dashboard">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<div class="row">
+	    				<div class="col-12">
+	    					<div class="card">
+	    						<div class="card-body" layout:fragment="contenido">
+	    						<br>
+	    							<div class="row">
+	    								<div class="col-3"  th:each="item: ${inventario.items}">
+	    									<div class="card" style="width: 14rem;">
+			    								<div class="card-body">
+			    									<center><h5 class="card-title" th:text="${item.material.nombre}"></h5></center>
+			    									<p class="card-text" th:text="'Tipo: ' + ${item.material.tipo.descripcion}"></p>
+			    									<p class="card-text" th:text="'Stock: ' + ${item.stock}
+			    										+ ' ' + ${item.material.unidadMedida.abreviatura}"></p>
+			    								</div>
+			    							</div>
+	    								</div>
+	    							</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </section>
+	</main>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+	
+</body>
+</html>
