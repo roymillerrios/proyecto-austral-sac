@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.g5.app.models.entity.Material;
 import com.g5.app.models.entity.Trabajador;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface ITrabajadorService extends UserDetailsService {
@@ -22,5 +23,8 @@ public interface ITrabajadorService extends UserDetailsService {
 
 	public void delete(Long id);
 	
+	public List<Trabajador> findByNombreCompleto(String term);
+
+    public Trabajador findByID(Long id);
 
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<script type="text/javascript" th:fragment="javascript">
+    $(document).ready(function() {
+
+        $("#buscar_trabajador").autocomplete({
+
+            source : function(request, response) {
+                $.ajax({
+                    url : "/obra/cargar-trabajador/" + request.term,
+                    dataType : "json",
+                    data : {
+                        term : request.term
+                    },
+                    success : function(data) {
+                        response($.map(data, function(item) {
+                            return {
+                                value : item.id,
+                                label : item.nombreCompleto,
+                            };
+                        }));
+                    },
+                });
+            },
+            select : function(event, ui) {
+                //$("#buscar_producto").val(ui.item.label);
+
+                if(itemsHelper.hasTrabajador(ui.item.value)){
+                    return false;
+                }
+
+                var linea = $("#plantillaItemsObra").html();
+
+                linea = linea.replace(/{ID}/g, ui.item.value);
+                linea = linea.replace(/{NOMBRE}/g, ui.item.label);
+
+                
+                $("#cargarItemsTrabajador tbody").append(linea);
+
+                return false;
+            }
+        });
+
+        $("form").submit(function(){
+            $("#plantillaItemsTrabajador").remove();
+            return;
+        });
+
+    });
+
+    var itemsHelper = {
+        hasTrabajador: function(id){
+
+            var resultado = false;
+
+            $('input[name="item_trabajador_id[]"]').each(function(){
+                if(parseInt(id) == parseInt($(this).val()) ){
+                    resultado = true;
+                }
+            });
+
+            return resultado;
+        },
+        eliminarLineaTrabajador: function(id){
+            $("#row_" + id).remove();
+        },
+    }
+</script>
+</body>
+</html>

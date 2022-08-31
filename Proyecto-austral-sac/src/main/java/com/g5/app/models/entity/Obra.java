@@ -1,12 +1,16 @@
 package com.g5.app.models.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="obras")
@@ -32,16 +36,14 @@ public class Obra implements Serializable{
 	@NotNull
 	private String ubicacion;
 	
-	/*
-	@OnetoMany(fetch = FetchType.LAZY,
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name="obra_trabajador",
-			joinColumns = {@JoinColumn(name="obra_id")},
-			inverseJoinColumns = {@JoinColumn(name="trabajador_id")})
-	private List<Trabajador> trabajadores;
+	@OneToMany(mappedBy = "obra", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<ItemsObra> items;
+	
+	
 	public Obra(){
-		this.obras = new ArrayList<Trabajador>();
-	}*/
+		this.items = new ArrayList<ItemsObra>();
+	}
 	
 	public Long getId() {
 		return id;
@@ -53,6 +55,18 @@ public class Obra implements Serializable{
 
 	public String getDescripcion() {
 		return descripcion;
+	}
+
+	public void addItem(ItemsObra items) {
+		this.items.add(items);
+	}
+
+	public List<ItemsObra> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemsObra> items) {
+		this.items = items;
 	}
 
 	public void setDescripcion(String descripcion) {
@@ -91,4 +105,5 @@ public class Obra implements Serializable{
 		this.ubicacion = ubicacion;
 	}
 	
+	private static final long serialVersionUID = 1L;
 }

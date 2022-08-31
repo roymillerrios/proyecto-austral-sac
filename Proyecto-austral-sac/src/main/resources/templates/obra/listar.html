@@ -38,6 +38,7 @@
 												<th><center>Fecha de Inicio</center></th>
 												<th><center>Zona</center></th>
 												<th><center>Estado</center></th>
+												<th><center>Asignar</center></th>
 												<th><center>Editar</center></th>
 												<th><center>Eliminar</center></th>
 											</tr>
@@ -49,6 +50,8 @@
 												<th th:text="${obra.fechaInicio}"></th>
 												<th th:text="${obra.zona}"></th>
 												<th th:text="${obra.estado}"></th>
+												<th><center><a class="btn btn-success btn-sm bi bi-eye-fill" 
+													th:href="@{/obra/asignar/} + ${obra.id}"></a></center></th>
 												<th><center><a class="btn btn-success btn-sm bi bi-pencil-square" 
 													th:href="@{/obra/form/} + ${obra.id}"></a></center></th>
 												<th><center><a class="btn btn-danger btn-sm bi bi-trash"

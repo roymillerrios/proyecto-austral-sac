@@ -18,4 +18,6 @@ public interface ITrabajadorDao extends JpaRepository<Trabajador, Long>{
 	public List<Trabajador> findByDNILikeIgnoreCase(String term);
 	
 	public Trabajador findByEmail(String email);
+	
+	public List<Trabajador> findByNombreCompletoLikeIgnoreCase(String term);
 }

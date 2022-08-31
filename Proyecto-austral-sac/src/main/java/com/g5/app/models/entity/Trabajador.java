@@ -19,6 +19,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 @Table(name="trabajadores", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -90,25 +93,20 @@ public class Trabajador implements Serializable {
 			joinColumns = { @JoinColumn(name = "trabajador_id") },
 			inverseJoinColumns = { @JoinColumn(name = "rol_id") })
 	private List<Rol> roles;
-
-	
-	private Long estado;
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Inventario inventario;
+	
+	@OneToMany(mappedBy = "trabajador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<ItemsObra> itemsObra;
 	
 	public Trabajador() {
 		this.items = new ArrayList<ItemTrabajador>();
 		this.roles = new ArrayList<Rol>() ;
-	}
-	
-	public Long getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Long estado) {
-		this.estado = estado;
+		this.itemsObra = new ArrayList<ItemsObra>();
 	}
 
 	public Inventario getInventario() {
@@ -141,6 +139,14 @@ public class Trabajador implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<ItemsObra> getItemsObra() {
+		return itemsObra;
+	}
+
+	public void setItemsObra(List<ItemsObra> itemsObra) {
+		this.itemsObra = itemsObra;
 	}
 
 	public String getPassword() {

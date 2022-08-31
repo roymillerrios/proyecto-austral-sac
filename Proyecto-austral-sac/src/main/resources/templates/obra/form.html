@@ -27,34 +27,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	    				<div class="col-12">
 	    					<div class="card">
 	    						<div class="card-body" layout:fragment="contenido">
-	    							<form th:action="@{/obra/form}" th:object="${obra}" method="post" enctype="multipart/form-data">
+	    							<form th:action="@{/obra/form}" th:object="${obra}"  method="post" enctype="multipart/form-data">
 	    								<br>
 	    								<div class="row">
 											<div class="col-sm-4">
 												<h5><label class="col">Descripción:</label></h5>
 												<div class="position-relative mb-4 ">
 												<input type="text" id="descripcion" th:field="*{descripcion}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>		
+														th:errorclass="'form-control alert-danger'">	
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<h5><label class="col">Zona:</label></h5>
 												<div class="position-relative mb-4 ">
 												<input type="text" id="zona" th:field="*{zona}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('zona')}" th:errors="*{zona}"></small>		
+														th:errorclass="'form-control alert-danger'">		
 												</div>
 											</div>
 											<div class="col-sm-4">
 												<h5><label class="col">Ubicación:</label></h5>
 												<div class="position-relative mb-4 ">
 												<input type="text" id="ubicacion" th:field="*{ubicacion}" class="form-control"
-														th:errorclass="'form-control alert-danger'"> <small
-														class="form-text text-danger"
-														th:if="${#fields.hasErrors('ubicacion')}" th:errors="*{ubicacion}"></small>		
+														th:errorclass="'form-control alert-danger'"> 
 												</div>
 											</div>
 										</div>
@@ -63,9 +57,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 												<h5> <label class="col">Fecha de Inicio:</label></h5>
 												<div class="position-relative">
 											    	 <input type="date" class="form-control" th:field="*{fechaInicio}" placeholder="Fecha de Inicio"
-															th:errorclass="'form-control alert-danger'">
-													<small class="form-text text-danger" th:if="${#fields.hasErrors('fechaInicio')}"
-														   th:errors="*{fechaInicio}"></small>
+															th:errorclass="'form-control alert-danger'"><small 
+															class="form-text text-danger" th:if="${#fields.hasErrors('fechaInicio')}"
+- 														   th:errors="*{fechaInicio}"></small>
 												</div>
 											</div>
 											<div class="col-sm-4">
@@ -79,6 +73,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 		    									</div>
 											</div>
 										</div>
+										<br>
+										<div class="row">
+											<div class="dropdown-divider"></div>
+										</div>
+										<br>
 										<div class="row">
 											<div  class="col-lg-5"></div>
 											<div class="col-lg-2">
@@ -95,7 +94,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	    </section>
 	</main>
 	
-	<footer th:replace="layout/layout :: footer"></footer>
-	
+		<footer th:replace="layout/layout :: footer"></footer>
+        
+        <script th:replace="obra/js/autocomplete-trabajadores :: javascript"></script>
+
 </body>
 </html>

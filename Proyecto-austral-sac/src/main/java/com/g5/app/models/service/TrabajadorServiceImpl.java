@@ -82,5 +82,15 @@ public class TrabajadorServiceImpl implements ITrabajadorService {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getDescripcion())).collect(Collectors.toList());
 	}
 	
+	@Override
+    @Transactional(readOnly = true)
+	public List<Trabajador> findByNombreCompleto(String term){
+		return trabajadorDao.findByNombreCompletoLikeIgnoreCase("%" + term + "%");
+	}
 
+	@Override
+    @Transactional(readOnly = true)
+    public Trabajador findByID(Long id) {
+		 return trabajadorDao.findById(id).orElse(null);
+	}
 }
